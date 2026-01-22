@@ -1996,7 +1996,7 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
       // Vehicle info
       var vehicleModel = document.getElementById("vehicleModel").value;
       var vehicleDerivative = document.getElementById("vehicleDerivative").value;
-      var vehicleBody = document.getElementById("vehicleBody").value;
+      var vehicleBody =(document.getElementById("VehicalBody") || {}).value || "";
       var vehicleColour = document.getElementById("vehicleColour").value;
       var vehicleVin = document.getElementById("vehicleVin").value;
       
