@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ARB FLA Ordering System</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 20px;
+    }
+	
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .header img {
+      max-height: 60px;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .tabs {
+      margin-top: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tabs button {
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      margin-right: 4px;
+    }
+
+    .tabs button.active {
+      background: white;
+      font-weight: bold;
+    }
+
+    .tab-content {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: -1px;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    legend {
+      font-weight: bold;
+    }
+
+    label {
+      display: inline-block;
+      margin: 3px 0;
+    }
+
+    input[type="text"], input[type="email"], textarea, select {
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .row label {
+      min-width: 110px;
+    }
+
+    textarea.parts-box {
+      font-family: Consolas, monospace;
+      width: 100%;
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 4px;
+      font-size: 12px;
+    }
+
+    table th {
+      background: #f8f8f8;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+      gap: 8px;
+    }
+
+    .button-row button {
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .image-box {
+      border: 1px solid #ccc;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 760px;
+      height: 220px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      background-color: #f5f5f5;
+    }
+
+    .image-box img {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="ARB.png" alt="ARB logo" />
+    <h1>ARB FLA Order Form</h1>
+    <img src="Ford.png" alt="Ford logo" />
+  </div>
+
+  <!-- Loading Status -->
+
+  <div class="tabs">
+    <button id="tab-order-btn" class="active" onclick="showTab('order')">Order Form</button>
+    <button id="tab-suspension-btn" onclick="showTab('suspension')">Suspension</button>
+    <button id="tab-canopy-btn" onclick="showTab('canopy')">Back of Ute</button>
+  </div>
+
+  <div id="tab-order" class="tab-content">
+    <fieldset>
+      <legend>Order / Customer details</legend>
+
+      <div class="row">
+        <label for="dealerName">Dealership:</label>
+        <select id="dealerName" style="min-width: 280px;"></select>
+      </div>
+
+      <div class="row">
+        <label for="dealerContact">Contact name:</label>
+        <input type="text" id="dealerContact" size="40" />
+      </div>
+
+      <div class="row">
+        <label for="dealerEmail">Email:</label>
+        <input type="email" id="dealerEmail" size="40" />
+        <input type="checkbox" id="ccThisEmail" style="margin-left: 15px;" />
+        <label for="ccThisEmail">CC this email</label>
+      </div>
+
+      <div class="row">
+        <label for="dateRequired">Date required:</label>
+        <input type="date" id="dateRequired" />
+      </div>
+	
+
+      <div class="row">
+        <label for="poNumber">PO Number:</label>
+        <input type="text" id="poNumber" size="20" />
+      </div>
+
+      <div class="row">
+        <label for="poNumber">Panda Number:</label>
+        <input type="text" id="pandaNumber" size="20" />
+      </div>
+
+
+      <hr />
+
+      <div class="row">
+        <strong>Vehicle information</strong>
+      </div>
+
+      <div class="row">
+        <label for="vehicleModel">Model:</label>
+        <select id="vehicleModel" style="min-width: 200px;">
+          <option value="">-- Select model --</option>
+          <option value="Ranger">Ranger</option>
+          <option value="Everest">Everest</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="vehicleDerivative">Sub model:</label>
+        <select id="vehicleDerivative" style="min-width: 200px;">
+          <option value="">-- Select sub model --</option>
+          <option value="XL">XL</option>
+          <option value="XLT">XLT</option>
+          <option value="Sport">Sport</option>
+          <option value="Tremor">Tremor</option>
+          <option value="Wildtrak">Wildtrak</option>
+          <option value="Platinum">Platinum</option>
+          <option value="Raptor">Raptor</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="VehicleBody">Body style:</label>
+		<select id="VehicalBody" style="min-width: 300px;">
+          <option value="">-- Select Body style --</option>
+          <option value=" Cab">Dual Cab</option>
+          <option value="Single Cab">Single Cab</option>
+          <option value="Extra cab">Extra Cab</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="vehicleColour">Colour:</label>
+        <select id="vehicleColour" style="min-width: 300px;">
+          <option value="">-- Select colour --</option>
+          <option value="Shadow Black - G9ZE">Shadow Black - G9ZE</option>
+          <option value="Blue Lightning - HCSEWHA">Blue Lightning - HCSEWHA</option>
+          <option value="Aluminium Metallic - 38P">Aluminium Metallic - 38P</option>
+          <option value="Meteor Grey - 42A">Meteor Grey - 42A</option>
+          <option value="Arctic White - A4D">Arctic White - A4D</option>
+          <option value="Sedona Orange - KYREWHA">Sedona Orange - KYREWHA</option>
+          <option value="Conquer Grey - JMW Code">Conquer Grey - JMW Code</option>
+          <option value="Orange - PN4JP">Orange - PN4JP</option>
+          <option value="Luxe Yellow - JFSEWHA">Luxe Yellow - JFSEWHA</option>
+          <option value="Command Grey - 5ZQAWHA">Command Grey - 5ZQAWHA</option>
+          <option value="Colour not required">Colour not required</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="vehicleVin">VIN:</label>
+        <input type="text" id="vehicleVin" size="40" />
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <strong>Supply details</strong>
+      </div>
+
+      <div class="row">
+<div class="row">
+  <label for="supplyMethod">Supply method:</label>
+  <select id="supplyMethod" style="min-width: 200px;">
+    <option value="">-- Select method --</option>
+    <option value="Fit by ARB">Fit by ARB</option>
+    <option value="Freight to MVD">Freight to MVD</option>
+  </select>
+</div>
+        <label for="fittingLocation">Fitting location:</label>
+        <select id="fittingLocation" style="min-width: 200px;"></select>
+      </div>
+
+      <div class="row">
+        <label for="freightAddress">Freight address:</label>
+      </div>
+      <textarea id="freightAddress" rows="3" cols="60"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>FLA parts</legend>
+
+      <datalist id="flaPartCodes"></datalist>
+
+      <table id="orderPartsTable">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Part code</th>
+            <th style="width: 10%;">Qty</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Non FLA parts</legend>
+
+      <datalist id="nonFlaPartCodes"></datalist>
+
+      <table id="nonFlaPartsTable">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Part code</th>
+            <th style="width: 10%;">Qty</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <div class="button-row">
+      <button onclick="prepareEmail()">Export to Email</button>
+	  <button onclick="clearForm()">Clear Form</button>
+    </div>
+  </div>
+
+  <div id="tab-suspension" class="tab-content" style="display:none;">
+    <div class="image-box">
+      <img id="suspensionImage" src="ranger.png" alt="Suspension vehicle" />
+    </div>
+
+    <fieldset>
+      <legend>Suspension selection</legend>
+
+      <div class="row">
+        <label for="suspModel">Model:</label>
+        <select id="suspModel"></select>
+
+        <label for="suspType">Type:</label>
+        <select id="suspType">
+          <option>FLA</option>
+          <option>Nitro Plus</option>
+          <option>MT64</option>
+          <option>BP51</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <fieldset style="flex:1 1 300px;">
+        <legend>Front suspension</legend>
+        <div class="row">
+          <label for="frontOption">Option:</label>
+          <select id="frontOption"></select>
+        </div>
+        <div class="row">
+          <label>Kit number:</label>
+          <span id="frontKit">-</span>
+        </div>
+        <div class="row">
+          <label>Parts:</label>
+        </div>
+        <textarea id="frontParts" class="parts-box" readonly></textarea>
+      </fieldset>
+
+      <fieldset style="flex:1 1 300px;">
+        <legend>Rear suspension</legend>
+        <div class="row">
+          <label for="rearOption">Option:</label>
+          <select id="rearOption"></select>
+        </div>
+        <div class="row">
+          <label>Kit number:</label>
+          <span id="rearKit">-</span>
+        </div>
+        <div class="row">
+          <label>Parts:</label>
+        </div>
+        <textarea id="rearParts" class="parts-box" readonly></textarea>
+      </fieldset>
+    </div>
+
+    <div class="button-row">
+      <span id="suspensionWarning" style="color: red; font-weight: bold; margin-right: 15px;"></span>
+      <button onclick="addSuspensionToOrder()">Add to order</button>
+    </div>
+  </div>
+
+  <!-- cANOPY TAB -->
+  <div id="tab-canopy" class="tab-content" style="display:none;">
+    <div class="image-box">
+      <img id="canopyImage" src="Classic.png" alt="Canopy" />
+    </div>
+
+    <fieldset>
+      <legend>Canopy selection</legend>
+
+      <div class="row">
+        <label for="canopyType">Type:</label>
+        <select id="canopyType">
+          <option value="">-- Select type --</option>
+          <option value="XLT" selected>XLT</option>
+          <option value="Wildtrak">Wildtrak</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="canopyModel">Model:</label>
+        <select id="canopyModel"></select>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Canopy configuration</legend>
+
+      <div class="row">
+        <label for="canopyOption">Option:</label>
+        <select id="canopyOption"></select>
+
+        <label for="canopyAccessory">Accessories:</label>
+        <select id="canopyAccessory"></select>
+      </div>
+
+      <div class="row">
+        <label for="canopyWindows">Windows:</label>
+        <select id="canopyWindows"></select>
+      </div>
+
+      <div class="row">
+        <label>Parts:</label>
+      </div>
+      <textarea id="canopyParts" class="parts-box" readonly></textarea>
+
+      <div class="row">
+        <label>Accessory parts:</label>
+      </div>
+      <textarea id="canopyAccessoryParts" class="parts-box" readonly></textarea>
+    </fieldset>
+
+    <div class="button-row">
+      <button onclick="addCanopyToOrder()">Add to order</button>
+    </div>
+  </div>
+
+  <script>
+
+var EMBEDDED_DEALERSHIPS = [
+      {"value":"10231 JOHN ANDREW FORD - GREY LYNN","label":"10231 JOHN ANDREW FORD - GREY LYNN","address":"2 Great North Rd, Grey Lynn, AUCKLAND"},
+      {"value":"10232 JOHN ANDREW FORD  - PENROSE","label":"10232 JOHN ANDREW FORD  - PENROSE","address":"23 Greenpark Rd, PENROSE"},
+      {"value":"10233 JOHN ANDREW FORD (SERVICE)","label":"10233 JOHN ANDREW FORD (SERVICE)","address":"133 Central Park Drive, HENDERSON"},
+      {"value":"11601 PACIFIC MOTOR GROUP - WHANGAREI","label":"11601 PACIFIC MOTOR GROUP - WHANGAREI","address":"52 Porowini Ave, WHANGAREI"},
+      {"value":"11604 PACIFIC MOTOR GROUP - KERIKERI","label":"11604 PACIFIC MOTOR GROUP - KERIKERI","address":"12 Klinac Lane, Waipapa, KERIKERI"},
+      {"value":"15281 NORTH HARBOUR FORD (NEW)","label":"15281 NORTH HARBOUR FORD (NEW)","address":"11 Link Drive, WAIRAU VALLEY"},
+      {"value":"15282 NORTH HARBOUR FORD (SERVICE)","label":"15282 NORTH HARBOUR FORD (SERVICE)","address":"10 Keith Hay Ct, SILVERDALE"},
+      {"value":"15283 NORTH HARBOUR FORD (SERVICE)","label":"15283 NORTH HARBOUR FORD (SERVICE)","address":"31-39 Hillside Road, GLENFIELD"},
+      {"value":"19731 SOUTH AUCKLAND MOTORS -MANUKAU","label":"19731 SOUTH AUCKLAND MOTORS -MANUKAU","address":"Cnr Great South Rd & Gladding Place, MANUKAU"},
+      {"value":"19732 SOUTH AUCKLAND MOTORS - PUKEKOHE","label":"19732 SOUTH AUCKLAND MOTORS - PUKEKOHE","address":"231 Manukau Rd, PUKEKOHE"},
+      {"value":"19733 SOUTH AUCKLAND MOTORS - BOTANY","label":"19733 SOUTH AUCKLAND MOTORS - BOTANY","address":"139 Harris Rd, BOTANY"},
+      {"value":"19734 SOUTH AUCKLAND MOTORS - MANGERE","label":"19734 SOUTH AUCKLAND MOTORS - MANGERE","address":"6 Timberly Road, Airport, MANGERE"},
+      {"value":"19735 SOUTH AUCKLAND MOTORS - TAKANINI","label":"19735 SOUTH AUCKLAND MOTORS - TAKANINI","address":"216 - 218 Great South Road, TAKANINI"},
+      {"value":"20171 OCEAN FORD - WHAKATANE","label":"20171 OCEAN FORD - WHAKATANE","address":"59-71 Commerce St, WHAKATANE"},
+      {"value":"21381 CENTRAL MOTOR GROUP - TAUPO","label":"21381 CENTRAL MOTOR GROUP - TAUPO","address":"87 Tuwharetoa St, TAUPO"},
+      {"value":"21382 CENTRAL MOTOR GROUP - ROTORUA","label":"21382 CENTRAL MOTOR GROUP - ROTORUA","address":"105 Old Taupo Road, ROTORUA"},
+      {"value":"22041 ULTIMATE MOTOR GROUP -HEWLETTS RD","label":"22041 ULTIMATE MOTOR GROUP -HEWLETTS RD","address":"150 Hewletts Rd, TAURANGA"},
+      {"value":"22043 ULTIMATE MOTOR GROUP - SECOND AVE","label":"22043 ULTIMATE MOTOR GROUP - SECOND AVE","address":"41 Second Ave, TAURANGA CITY"},
+      {"value":"22045 ULTIMATE MOTOR GROUP - TE PUKE","label":"22045 ULTIMATE MOTOR GROUP - TE PUKE","address":"273 Jelicoe St, TE PUKE"},
+      {"value":"22590 FAIRVIEW MOTORS - THAMES","label":"22590 FAIRVIEW MOTORS - THAMES","address":"400 Pollen St, THAMES"},
+      {"value":"22591 FAIRVIEW MOTORS - HAMILTON","label":"22591 FAIRVIEW MOTORS - HAMILTON","address":"473 Te Rapa Rd, HAMILTON"},
+      {"value":"22592 FAIRVIEW MOTORS  - MATAMATA","label":"22592 FAIRVIEW MOTORS  - MATAMATA","address":"65 Firth St, MATAMATA"},
+      {"value":"22594 FAIRVIEW MOTORS - TE AWAMUTU","label":"22594 FAIRVIEW MOTORS - TE AWAMUTU","address":"132 Kihikihi Rd, TE AWAMUTU"},
+      {"value":"22598 FAIRVIEW MOTORS - CAMBRIDGE","label":"22598 FAIRVIEW MOTORS - CAMBRIDGE","address":"95 Victoria St, CAMBRIDGE"},
+      {"value":"26621 ENERGY CITY FORD - NEW PLYMOUTH","label":"26621 ENERGY CITY FORD - NEW PLYMOUTH","address":"108 Courtenay St, NEW PLYMOUTH"},
+      {"value":"26623 ENERGY CITY FORD - HAWERA","label":"26623 ENERGY CITY FORD - HAWERA","address":"2 Wilson Street, HAWERA"},
+      {"value":"30301 CAPITAL CITY MOTORS - LOWER HUTT","label":"30301 CAPITAL CITY MOTORS - LOWER HUTT","address":"434 High St, LOWER HUTT"},
+      {"value":"30302 CAPITAL CITY MOTORS (SERVICE)","label":"30302 CAPITAL CITY MOTORS (SERVICE)","address":"258 Taranaki St, WELLINGTON"},
+      {"value":"30303 CAPITAL CITY MOTORS - PORIRUA","label":"30303 CAPITAL CITY MOTORS - PORIRUA","address":"10 Tutuia Place, PORIRUA"},
+      {"value":"30304 CAPITAL CITY MOTORS - PARAPARAUMU","label":"30304 CAPITAL CITY MOTORS - PARAPARAUMU","address":"207 Kapiti Rd, PARAPARAUMU"},
+      {"value":"31511 BAY FORD - NAPIER","label":"31511 BAY FORD - NAPIER","address":"9 Owen St, NAPIER"},
+      {"value":"32301 K.B. MOTORS","label":"32301 K.B. MOTORS","address":"11 Barraud St, DANNEVIRKE"},
+      {"value":"33511 GISBORNE MOTORS","label":"33511 GISBORNE MOTORS","address":"75 Grey St, GISBORNE"},
+      {"value":"34561 BAY FORD - HASTINGS","label":"34561 BAY FORD - HASTINGS","address":"Cnr of Pakowhai and Omahu Road, HASTINGS"},
+      {"value":"36011 RUAHINE MOTORS","label":"36011 RUAHINE MOTORS","address":"84 Ruataniwha St, WAIPUKURAU"},
+      {"value":"36301 COURTESY FORD - PALMERSTON NORTH","label":"36301 COURTESY FORD - PALMERSTON NORTH","address":"180 John F Kennedy Dr, PALMERSTON NTH"},
+      {"value":"36303 COURTESY FORD - FIELDING","label":"36303 COURTESY FORD - FIELDING","address":"97 Manchester St, FEILDING"},
+      {"value":"36981 FAGAN MOTORS - MASTERTON","label":"36981 FAGAN MOTORS - MASTERTON","address":"75 Dixon St, MASTERTON"},
+      {"value":"39641 WANGANUI MOTORS - WANGANUI","label":"39641 WANGANUI MOTORS - WANGANUI","address":"82 Ridgway St, WANGANUI"},
+      {"value":"41871 AVON CITY FORD - CHRISTCHURCH","label":"41871 AVON CITY FORD - CHRISTCHURCH","address":"162 Main South Rd, CHRISTCHURCH STH"},
+      {"value":"41872 AVON CITY FORD - RANGIORA","label":"41872 AVON CITY FORD - RANGIORA","address":"78 Ivory St, RANGIORA"},
+      {"value":"42661 GLUYAS MOTOR GROUP - ASHBURTON","label":"42661 GLUYAS MOTOR GROUP - ASHBURTON","address":"79 Kermode St, ASHBURTON"},
+      {"value":"43031 TEAM HUTCHINSON FORD - CHRISTCHURCH","label":"43031 TEAM HUTCHINSON FORD - CHRISTCHURCH","address":"186 Tuam St, CHRISTCHURCH"},
+      {"value":"43032 TEAM HUTCHINSON FORD - GREYMOUTH","label":"43032 TEAM HUTCHINSON FORD - GREYMOUTH","address":"67 Guinness St, GREYMOUTH"},
+      {"value":"43611 REGIONAL FORD - GORE","label":"43611 REGIONAL FORD - GORE","address":"7 Medway St, GORE"},
+      {"value":"43612 REGIONAL FORD -BALCLUTHA","label":"43612 REGIONAL FORD -BALCLUTHA","address":"Cnr Clyde & High St, BALCLUTHA"},
+      {"value":"43901 TIMARU MOTORS - TIMARU","label":"43901 TIMARU MOTORS - TIMARU","address":"207 Hilton Highway, TIMARU"},
+      {"value":"44241 MACAULAY FORD - INVERCARGILL","label":"44241 MACAULAY FORD - INVERCARGILL","address":"270 Dee St, INVERCARGILL"},
+      {"value":"44242 MACAULAY FORD - QUEENSTOWN","label":"44242 MACAULAY FORD - QUEENSTOWN","address":"142 Glenda Dr, QUEENSTOWN"},
+      {"value":"44244 MACAULAY FORD - WANAKA","label":"44244 MACAULAY FORD - WANAKA","address":"11-13 McCormick St; 3 Parks, WANAKA"},
+      {"value":"45451 M.S. FORD - NELSON","label":"45451 M.S. FORD - NELSON","address":"157 Haven Rd, NELSON"},
+      {"value":"45453 M.S. FORD - MOTUEKA","label":"45453 M.S. FORD - MOTUEKA","address":"73 High Street, MOTUEKA"},
+      {"value":"45454 M.S. FORD - RICHMOND","label":"45454 M.S. FORD - RICHMOND","address":"36 McGlashen Avenue, RICHMOND"},
+      {"value":"45611 DUNEDIN CITY FORD - DUNEDIN","label":"45611 DUNEDIN CITY FORD - DUNEDIN","address":"431 Andersons Bay Rd, DUNEDIN"},
+      {"value":"45615 DUNEDIN CITY FORD - ALEXANDRA","label":"45615 DUNEDIN CITY FORD - ALEXANDRA","address":"19 Ngapara St, ALEXANDRA"},
+      {"value":"46791 MCKENDRY FORD - BLENHEIM","label":"46791 MCKENDRY FORD - BLENHEIM","address":"5-7 Nelson St, BLENHEIM"}
+    ];
+
+var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHSA250TC","d":"60-63.5MM (2.5IN) NHS TUBE"},{"s":"NHSA300TC","d":"75-77MM (3IN) NHS TUBE CLAMP"},{"s":"740106","d":"ADAPTER 1/4NPT (M/F/F) TEE 2PK"},{"s":"740101","d":"ADAPTER 1/4NPT(M) JIC4(M) 2PK"},{"s":"740105","d":"ADAPTER 1/8BSP(M) JIC4(M) 2PK"},{"s":"740107","d":"ADAPTER US STD (M) NPT (M) 2PK"},{"s":"320501SP","d":"AIR FILTER ASSY"},{"s":"171301V2","d":"AIR HOSE US STD(M) US STD(F)"},{"s":"171507","d":"AIR TANK 4L 4 X 1/4NPSC"},{"s":"SAAMB26","d":"AMB26 ANTENNA MOUNT KIT VERT"},{"s":"3500700","d":"ANTI REFLECTIVE TAPE KIT"},{"s":"814412","d":"ARB ALUM AWN W/LIGHT 2500 BLK"},{"s":"814408","d":"ARB ALUM AWN W/LIGHT 2500X2500"},{"s":"814406","d":"ARB AWNING W/LIGHT 2000X2500"},{"s":"814407","d":"ARB AWNING W/LIGHT 2500X2500"},{"s":"1770060","d":"ARB BASERACK 1255X1155"},{"s":"1770070","d":"ARB BASERACK 1255x1285"},{"s":"1770020","d":"ARB BASERACK 1545X1285"},{"s":"1770010","d":"ARB BASERACK 1835X1155"},{"s":"1770030","d":"ARB BASERACK 1835X1285"},{"s":"1770040","d":"ARB BASERACK 2125X1285"},{"s":"1780370","d":"ARB BASERACK RATCHET STRAPS"},{"s":"1780310","d":"ARB BASERACK RECVRY BRD HOLDER"},{"s":"17900120","d":"ARB BASERACK SLV MOUNT"},{"s":"1780200","d":"ARB BASERACK TIE DOWN EYEBOLTS"},{"s":"1780600","d":"ARB BASERACK TRADE RAILS"},{"s":"4700030","d":"ARB Canopy Vent V2"},{"s":"10100377","d":"ARB CARGO ORGANISER PVC SMALL"},{"s":"ARB601","d":"ARB DIGITAL TYRE INFLATOR"},{"s":"ARB510","d":"ARB E-Z DEFLATOR DIGITAL GAUGE"},{"s":"802200","d":"ARB ESPERANCE TENT"},{"s":"10900022","d":"ARB FRIDGE SLIDE 60/78L"},{"s":"10900040","d":"ARB FRIDGE SLIDE ELEMENTS 60L"},{"s":"10900039","d":"ARB FRIDGE SOLID MOUNT KIT"},{"s":"10900038","d":"ARB FRIDGE TIE DOWN KIT"},{"s":"ARB4297","d":"ARB INFLATION CASE BLACK"},{"s":"AR21FV2","d":"ARB INTENSITY V2 21 LED FLOOD"},{"s":"AR21SV2","d":"ARB INTENSITY V2 21 LED SPOT"},{"s":"AR32FV2","d":"ARB INTENSITY V2 32 LED FLOOD"},{"s":"AR32SV2","d":"ARB INTENSITY V2 32 LED SPOT"},{"s":"AR40CV2","d":"ARB INTENSITY V2 40 LED COM LB"},{"s":"RDK1355DR","d":"ARB KITCHEN DRAWER CONVERSION"},{"s":"3500910","d":"ARB LED FOG LIGHT KIT - LRG"},{"s":"3500890","d":"ARB LED FOG LIGHT KIT - SML"},{"s":"3500520","d":"ARB LIGHT LOOM DEUTSCH SCKTS"},{"s":"830001","d":"ARB PRESSURE CONTROL"},{"s":"RK12A","d":"ARB RECOVERY KIT WEEKENDER"},{"s":"3600020","d":"ARB RSTB SOCKET & TAIL"},{"s":"3600030","d":"ARB RSTB SOCKET & TAIL"},{"s":"3600040","d":"ARB RSTB SOCKET & TAIL"},{"s":"3600050","d":"ARB RSTB SOCKET & TAIL"},{"s":"3600010","d":"ARB RSTB WIRING INCL ECU"},{"s":"803103","d":"ARB SIMPSON TENT W/ ANNEX"},{"s":"1780500","d":"ARB SLIMLINE ROOF RACK LIGHT"},{"s":"3500480","d":"ARB WIRING LOOM V2"},{"s":"VARBAC16C","d":"ASCENT CANOPY-LUL/LUR"},{"s":"VARBAC54C","d":"ASCENT CNPY-LUL/LUR RANGER PX"},{"s":"4700050","d":"ASCENT DUAL STAGE WINDOW CATCH"},{"s":"4340130","d":"AUX B-KIT MY22 RANGER/EVEREST"},{"s":"4300040","d":"AUX BAT KIT WITH 12IN BATT BOX"},{"s":"4340120","d":"AUX BATT KIT PXII/BT50 GEN2"},{"s":"17940040","d":"BASE RACK MOUNT KIT ASCENT"},{"s":"17940010","d":"BASE RACK MOUNT KIT ASCENT DC"},{"s":"17940060","d":"BASE RACK MOUNT KIT CLASSIC"},{"s":"17940065","d":"BASE RACK MOUNT KIT CLASSIC"},{"s":"17940030","d":"BASE RACK MOUNT KIT CLASSIC DC"},{"s":"1780240","d":"BASERACK AWNING BRACKET"},{"s":"1780260","d":"BASERACK AWNING BRKT QR"},{"s":"1780420","d":"BASERACK BRIDGE PLATE NARROW"},{"s":"17940080","d":"BASERACK CABRACK MNT"},{"s":"17940020","d":"BASERACK CABRACK MNT SUIT T6"},{"s":"1780250","d":"BASERACK GAS BOTTLE HOLDER"},{"s":"17940090","d":"BASERACK MNT SUIT 1770010/30"},{"s":"1780365","d":"BASERACK ROLLER KIT 1110MM"},{"s":"1780230","d":"BASERACK T-SLOT ADAPTOR (PAIR)"},{"s":"1780220","d":"BASERACK T-SLOT ADAPTOR (X1)"},{"s":"1780210","d":"BASERACK TIE DOWN PAIR"},{"s":"6604006","d":"BRAKE LIGHT LED ARB"},{"s":"5100230","d":"BUFFER KIT 2PCE REAR"},{"s":"170114","d":"BULKHEAD KIT"},{"s":"FK115","d":"BUMP STOP ADAPTOR KIT"},{"s":"3940550","d":"BUMPER ONLY SUIT RAPTOR"},{"s":"OMESB118","d":"BUSH KIT G SHACKLE"},{"s":"OMESB117","d":"BUSH KIT OE SHACKLE"},{"s":"CC52","d":"C/CODE BODY FLARE PAIR ONLY"},{"s":"CC10","d":"C/CODE REAR BAR COVER PANELS"},{"s":"3440550","d":"C/W/BAR SUIT PXIII MY19"},{"s":"4740020","d":"CABIN BRAKE LIGHT COVER"},{"s":"XCLS17C","d":"CANOPY CLASSIC PLUS DC, 2LUW"},{"s":"XCLS17A","d":"CANOPY CLASSIC PLUS DC, 2SW"},{"s":"XCLS17B","d":"CANOPY CLASSIC PLUS DC, LUL"},{"s":"XCLS17D","d":"CANOPY CLASSIC PLUS DC, LUR"},{"s":"CLS79C","d":"CANOPY SMTH DC, 2LUW"},{"s":"CLS79A","d":"CANOPY SMTH DC, 2SW"},{"s":"CLS79B","d":"CANOPY SMTH DC, LUL"},{"s":"CLS79D","d":"CANOPY SMTH DC, LUR"},{"s":"CLS77C","d":"CANOPY SMTH EXTC, 2LUW"},{"s":"CLS77A","d":"CANOPY SMTH EXTC, 2SW"},{"s":"CLS77B","d":"CANOPY SMTH EXTC, LUL"},{"s":"CLS77D","d":"CANOPY SMTH EXTC, LUR"},{"s":"3540360T","d":"CKMTA AIR COMPRESSOR KIT"},{"s":"XCLS15C","d":"CLASSIC PLUS CANOPY EXTC, 2LUW"},{"s":"XCLS15A","d":"CLASSIC PLUS CANOPY EXTC, 2SW"},{"s":"XCLS15B","d":"CLASSIC PLUS CANOPY EXTC, LUL"},{"s":"XCLS15D","d":"CLASSIC PLUS CANOPY EXTC, LUR"},{"s":"XCLS01A","d":"CLASSIC PLUS CNPY DC RANGER"},{"s":"XCLS01B","d":"CLASSIC PLUS CNPY DC RANGER"},{"s":"XCLS01C","d":"CLASSIC PLUS CNPY DC RANGER"},{"s":"XCLS01D","d":"CLASSIC PLUS CNPY DC RANGER"},{"s":"XCLS08A","d":"CLASSIC PLUS CNPY EC RANGER"},{"s":"XCLS08B","d":"CLASSIC PLUS CNPY EC RANGER"},{"s":"XCLS08C","d":"CLASSIC PLUS CNPY EC RANGER"},{"s":"XCLS08D","d":"CLASSIC PLUS CNPY EC RANGER"},{"s":"3500680","d":"CLEAR COVERS ARB FOGLIGHT"},{"s":"CLS68C","d":"CNPY SMTH DC RANGER 2011+ 2LUW"},{"s":"CLS68A","d":"CNPY SMTH DC RANGER 2011+ 2SW"},{"s":"CLS68B","d":"CNPY SMTH DC RANGER 2011+ LUL"},{"s":"CLS68D","d":"CNPY SMTH DC RANGER 2011+ LUR"},{"s":"CLS70C","d":"CNPY SMTH RANGER EC 2011+ 2LUW"},{"s":"CLS70A","d":"CNPY SMTH RANGER EC 2011+ 2SW"},{"s":"CLS70D","d":"CNPY SMTH RANGER EC 2011+ LUR"},{"s":"3106","d":"COIL EVEREST REAR"},{"s":"3141","d":"COIL MY19 ON"},{"s":"3142","d":"COIL RANGER BT50 MY19 ON(L)"},{"s":"3140","d":"COIL SPRING"},{"s":"3207","d":"COIL SPRING FRONT"},{"s":"3208","d":"COIL SPRING FRONT"},{"s":"3209","d":"COIL SPRING FRONT"},{"s":"3210","d":"COIL SPRING FRONT"},{"s":"3211","d":"COIL SPRING FRONT"},{"s":"3143","d":"COIL SPRING RANGER MY19 (L)"},{"s":"3212","d":"COIL SPRING REAR"},{"s":"CC16","d":"COLOUR CODE ASCENT CANOPY"},{"s":"CC1","d":"COLOUR CODE FRONT BAR"},{"s":"CC7","d":"COLOUR CODE PROTECTION STEPS"},{"s":"CC6","d":"COLOUR CODE SIDE RAIL SET"},{"s":"CC15","d":"COLOUR CODE SMOOTH CANOPY"},{"s":"CC17","d":"COLOUR CODE SPORT LID"},{"s":"CC20","d":"COLOUR CODE SUMMIT WING PANEL"},{"s":"7440020","d":"COMBAR ALLOY SUIT ARB FOG MKII"},{"s":"3540320","d":"COMP BRKT RANGER PX SERIES"},{"s":"740108","d":"COMPRESSOR BLOW GUN US STD 1PK"},{"s":"CKMP12V2","d":"COMPRESSOR KIT MEDIUM"},{"s":"CKMA12","d":"COMPRESSOR KIT MEDIUM AIR"},{"s":"CKMTA12","d":"COMPRESSOR KIT TWIN 12V"},{"s":"CKMTP12","d":"COMPRESSOR TWIN PORTABLE 12V"},{"s":"10910076","d":"CORD DC SCREW/CIG TYPE"},{"s":"AR10TA","d":"COVER AMBER AR21"},{"s":"AR09TA","d":"COVER AMBER AR32"},{"s":"AR11TA","d":"COVER AMBER AR40"},{"s":"AR11TAV2","d":"COVER AMBER AR40 V2"},{"s":"AR10TC","d":"COVER CLEAR AR21"},{"s":"AR09","d":"COVER CLEAR AR32"},{"s":"AR11","d":"COVER CLEAR AR40"},{"s":"AR11V2","d":"COVER CLEAR AR40 V2"},{"s":"AR10SB","d":"COVER SOLID BLACK AR21"},{"s":"AR09SB","d":"COVER SOLID BLACK AR32"},{"s":"AR11SB","d":"COVER SOLID BLACK AR40"},{"s":"AR11SBV2","d":"COVER SOLID BLACK AR40 V2"},{"s":"176301","d":"CROSS BAR FIT KIT SPORTLID V"},{"s":"660004001SP","d":"D HANDLE PAIR CANOPY KEY 1"},{"s":"660004010SP","d":"D HANDLE PAIR CANOPY KEY 10"},{"s":"660004011SP","d":"D HANDLE PAIR CANOPY KEY 11"},{"s":"660004012SP","d":"D HANDLE PAIR CANOPY KEY 12"},{"s":"660004013SP","d":"D HANDLE PAIR CANOPY KEY 13"},{"s":"660004014SP","d":"D HANDLE PAIR CANOPY KEY 14"},{"s":"660004015SP","d":"D HANDLE PAIR CANOPY KEY 15"},{"s":"660004016SP","d":"D HANDLE PAIR CANOPY KEY 16"},{"s":"660004017SP","d":"D HANDLE PAIR CANOPY KEY 17"},{"s":"660004018SP","d":"D HANDLE PAIR CANOPY KEY 18"},{"s":"660004019SP","d":"D HANDLE PAIR CANOPY KEY 19"},{"s":"660004002SP","d":"D HANDLE PAIR CANOPY KEY 2"},{"s":"660004020SP","d":"D HANDLE PAIR CANOPY KEY 20"},{"s":"660004003SP","d":"D HANDLE PAIR CANOPY KEY 3"},{"s":"660004004SP","d":"D HANDLE PAIR CANOPY KEY 4"},{"s":"660004005SP","d":"D HANDLE PAIR CANOPY KEY 5"},{"s":"660004006SP","d":"D HANDLE PAIR CANOPY KEY 6"},{"s":"660004007SP","d":"D HANDLE PAIR CANOPY KEY 7"},{"s":"660004008SP","d":"D HANDLE PAIR CANOPY KEY 8"},{"s":"660004009SP","d":"D HANDLE PAIR CANOPY KEY 9"},{"s":"170112","d":"DIFFERENTIAL BREATHER KIT"},{"s":"DD435","d":"DRAW DIVIDER SUIT 435 WIDEDRAW"},{"s":"CABRUN","d":"DRAWER FRIDGE CABLE GUIDE"},{"s":"FK57","d":"DRIVELINE KIT"},{"s":"FK113","d":"DRIVELINE SPACER KIT"},{"s":"CLS308285","d":"EL SPRING CLIP LINER 285MM"},{"s":"CLS308265","d":"EL SPRING CLIP LINER 65MM"},{"s":"740104","d":"ELBOW JIC4(M) JIC4(F) 2PK"},{"s":"RK11A","d":"ESSENTIALS RECOVERY KIT SII"},{"s":"10900029","d":"EXTENDED FRIDGE SLIDE 35/47L"},{"s":"ELSK15","d":"EXTRA LEAF SPACER KIT"},{"s":"ELSK12","d":"EXTRA LEAF SPACER KIT 60MM"},{"s":"176002","d":"F/KIT SLV ADBLUE CENT LOCK"},{"s":"176001","d":"F/KIT SLV NO ADBLUE CENT LOCK"},{"s":"176102","d":"F/KIT SLV OE BAR"},{"s":"3500630","d":"FLIP UP LICENSE PLATE KIT"},{"s":"BRDAPKIT","d":"FOLD DOWN ANCHOR POINT KIT"},{"s":"10801351","d":"FRIDGE 35L CLASSIC SERIES 2"},{"s":"10802361","d":"FRIDGE 36L ZERO PLUG I"},{"s":"10802441","d":"FRIDGE 44L ZERO PLUG I"},{"s":"10801471","d":"FRIDGE 47L CLASSIC SERIES 2"},{"s":"10801601","d":"FRIDGE 60L CLASSIC SERIES 2"},{"s":"10810601","d":"FRIDGE 60L ELEMENTS PLUG I"},{"s":"10802601","d":"FRIDGE 60L ZERO PLUG I"},{"s":"10802691","d":"FRIDGE 69L DZ ZERO PLUG I"},{"s":"10802961","d":"FRIDGE 96LDZ ZERO PLUG I"},{"s":"10900041","d":"FRIDGE APP CONNECT MODULE"},{"s":"10900010","d":"FRIDGE CLASSIC TIEDOWN KIT"},{"s":"10900047","d":"FRIDGE SLIDE ZERO 36/44L"},{"s":"10900048","d":"FRIDGE SLIDE ZERO 60/69/73L"},{"s":"10900046","d":"FRIDGE TIE DOWN KIT ZERO"},{"s":"10900027","d":"FRIDGE WIRING KIT"},{"s":"FAUPX1630","d":"FRONT AXLE UPGRADE LABEL PACK"},{"s":"FAURAN1640","d":"FRONT AXLE UPGRADE LABEL PACK"},{"s":"OMEGP10","d":"GREASABLE FIXED END PIN KIT"},{"s":"OMEGS20","d":"GREASABLE SHACKLE KIT"},{"s":"1780010","d":"GUARD RAIL FRONT 1/4 1155"},{"s":"1780020","d":"GUARD RAIL FRONT 1/4 1285"},{"s":"1780140","d":"GUARD RAIL FRONT 3/4 1255X1155"},{"s":"1780150","d":"GUARD RAIL FRONT 3/4 1255X1285"},{"s":"1780170","d":"GUARD RAIL FULL 1255X1155"},{"s":"1780180","d":"GUARD RAIL FULL 1255X1285"},{"s":"HLID02P","d":"HARDLID DC, PREM, RANGER"},{"s":"3540380","d":"HARNESS ROOF MT HB SIGNAL FORD"},{"s":"3500600","d":"HAWSE FAIRLEAD SPACER KIT"},{"s":"FK114","d":"HEADLIGHT SENSOR BRACKET"},{"s":"176202","d":"Heavy Load gas Struts"},{"s":"SAHLJ1","d":"HIGH LIFT JACK ADAPTOR"},{"s":"740111","d":"HOSE COUPLING US STD JIC-4 1PK"},{"s":"740112","d":"HOSE COUPLING US STD NPT 1PK"},{"s":"740201","d":"HOSE REINFORCED JIC-4 0.3M 1PK"},{"s":"740202","d":"HOSE REINFORCED JIC-4 0.5M 1PK"},{"s":"740203","d":"HOSE REINFORCED JIC-4 1M 1PK"},{"s":"740205","d":"HOSE REINFORCED JIC-4 2M 1PK"},{"s":"740206","d":"HOSE REINFORCED JIC-4 3M 1PK"},{"s":"CERDRFH1355","d":"INFILL RFH PANEL - RD1355"},{"s":"CERDRFH945","d":"INFILL RFH PANEL - RD945"},{"s":"CERDRFRFH1355","d":"INFILL RFH PANEL - RDRF1355"},{"s":"4140090","d":"INT FRM KIT ASCENT"},{"s":"4140021","d":"INT FRM KIT RANGER/MAZ BT50"},{"s":"SRBC60A","d":"INTERLEAF LINER HDPE LONG"},{"s":"SRBC60B","d":"INTERLEAF LINER HDPE SHORT"},{"s":"1060001","d":"JACK - HYDRAULIC LONG TRAVEL"},{"s":"10100111","d":"JACKBASE"},{"s":"1780350","d":"JERRY CAN MNT DBLE HORIZONTAL"},{"s":"1780340","d":"JERRY CAN MNT DBLE VERTICAL"},{"s":"1780330","d":"JERRY CAN MNT SNGLE HORIZONTAL"},{"s":"1780320","d":"JERRY CAN MNT SNGLE VERTICAL"},{"s":"3163082","d":"KIT SURROUND ARB FOGLIGHT"},{"s":"3163015","d":"KIT SURROUND FOR FOG"},{"s":"6821287","d":"LAMP KIT LED"},{"s":"ELSK14","d":"LEAF SPRING TRIM PACKER"},{"s":"ELSK05","d":"LEAF TRIM PACKER 10MM 60 WIDE"},{"s":"SJB21LENB","d":"LENS COVER BLACK ARB SOLIS 21"},{"s":"668PJ027","d":"LOOM - PATCH NGC VEHICLE"},{"s":"3500820","d":"LOOM EXTENSION"},{"s":"171503","d":"MANIFOLD KIT CKMTA"},{"s":"4140085","d":"MNT KIT ROOF BAR LIGHT DUTY FR"},{"s":"4140086","d":"MNT KIT ROOF BAR LIGHT DUTY RR"},{"s":"ARMP","d":"MOUNT KIT PEDESTAL"},{"s":"ARM603","d":"MOUNT KIT SUIT DIA 60.3MM"},{"s":"ARM761","d":"MOUNT KIT SUIT DIA 76.1MM"},{"s":"4140095","d":"MOUNTS ROOF CAGE ASCENT"},{"s":"4140024","d":"MOUNTS-ROOF CAGE ASCENT RANGER"},{"s":"NHX180VLI-KIT","d":"NIGHT HAWK 7IN VLI SERIES KIT"},{"s":"NHX230VBP-KIT","d":"NIGHT HAWK 9IN VBP SERIES KIT"},{"s":"NHX230VCT-KIT","d":"NIGHT HAWK 9IN VCT SERIES KIT"},{"s":"NHX230VLI-KIT","d":"NIGHT HAWK 9IN VLI SERIES KIT"},{"s":"NHX230VLI","d":"NIGHT HAWK 9IN VLI SERIES LED"},{"s":"60172","d":"NITROCHARGER SPORT SHOCK"},{"s":"60173","d":"NITROCHARGER SPORT SHOCK"},{"s":"60174","d":"NITROCHARGER SPORT SHOCK"},{"s":"60178","d":"NITROCHARGER SPORT SHOCK"},{"s":"90052","d":"NITROCHARGER SPORT STRUT"},{"s":"90053","d":"NITROCHARGER SPORT STRUT"},{"s":"3540250","d":"OE F/LIGHT MNT KIT SUIT PXIII"},{"s":"UCB19","d":"OME CENTRE BOLT & NUT"},{"s":"110-110-113","d":"OME SHOCK BUSH"},{"s":"110-110-135","d":"OME SHOCK BUSH"},{"s":"UCB4","d":"OME SPRING CENTRE BOLT & NUT"},{"s":"OMEU66","d":"OME U BOLT WASHER & NUT"},{"s":"OMEU66A","d":"OME U BOLT WASHER & NUT"},{"s":"OMEU66B","d":"OME U BOLT WASHER & NUT"},{"s":"OMEU82","d":"OME U BOLT WASHERS & NUTS"},{"s":"OMEU83","d":"OME U BOLT WASHERS & NUTS"},{"s":"FK112","d":"PACKER STRUT 5MM"},{"s":"FK94","d":"PACKER STRUT 5MM"},{"s":"10900049","d":"PORTABLE BATTERY PACK 15AH"},{"s":"RK9A","d":"PREMIUM RECOVERY KIT SII"},{"s":"171302","d":"PUMP UP KIT US STD HIGH TEMP"},{"s":"171302V2","d":"PUMP UP KIT US STD HIGH TEMP"},{"s":"RD745","d":"R/DRAW 650 X 435"},{"s":"RD945","d":"R/DRAW 850 X 435"},{"s":"RDTAB1355","d":"R/DRAW ARB TABLE S/S 1355/945"},{"s":"FK1730MA12","d":"R/DRAW RANGER 15+ FKEXFK"},{"s":"RDRF945","d":"R/DRAW WITH R/FLOOR 850 X 435"},{"s":"RD1355","d":"R/DRAWER 1255 X 435"},{"s":"RD1045","d":"R/DRAWER 950 X 465"},{"s":"RDK1355","d":"R/DRAWER KITCHEN 1255"},{"s":"RDK1045","d":"R/DRAWER KITCHEN 950"},{"s":"RDVEP500","d":"R/DRAWER VERTICAL END PANELS"},{"s":"RDRF1045","d":"R/DRAWER WITH R/FLOOR"},{"s":"RDRF1355","d":"R/DRAWER WITH R/FLOOR"},{"s":"MAP21FKEK","d":"R/DRW & SIDE FLR KIT, DC"},{"s":"MAP21TLFKEK","d":"R/DRW & SIDE FLR KIT, DC"},{"s":"RD1730SM","d":"R/DRW 1630L X 440W X 260H"},{"s":"RDRF1730SM","d":"R/DRW 1630L X 440W X 260H"},{"s":"MAE15IK","d":"R/DRW FLR EXT EVEREST"},{"s":"MA12EXFK","d":"R/DRW FLR EXT RANGER/BT50 12ON"},{"s":"MA12FK","d":"R/DRW SIDE FLOOR KIT"},{"s":"MAE15FK","d":"R/DRW SIDE FLOOR KIT"},{"s":"EVER22FKIK","d":"R/DWR SIDE FLR & INSTALL KIT"},{"s":"BEP500LH","d":"R/FLR BARRIER EXT L/H"},{"s":"BEP500RH","d":"R/FLR BARRIER EXT R/H"},{"s":"4140120","d":"RACK FRAME SET CLASSIC EC"},{"s":"4140040","d":"RACK FRAME SET RANGER 11ON"},{"s":"4140070","d":"RACK FRAME SET RANGER DC"},{"s":"4140100","d":"RACK FRAME SET RANGER DC"},{"s":"4140140","d":"RACK FRAME SET RANGER DC"},{"s":"5640210","d":"REAR BAR SUIT MY22 RANGER"},{"s":"58X22/A","d":"RECOVERY HITCH & SHACKLE COMBO"},{"s":"2840040","d":"RECOVERY POINT 8T ARB RATED"},{"s":"2840060","d":"RECOVERY POINT LHS 8T RATED"},{"s":"2840080","d":"RECOVERY POINT REAR SUIT ARB"},{"s":"2840070","d":"RECOVERY POINT RHS 8T RATED"},{"s":"171314","d":"REMOTE HOSE COUPLING MOUNT KIT"},{"s":"RWR100S","d":"REVO 10,000LB SYNTHETIC WINCH"},{"s":"RF1045","d":"ROLLER FLOOR"},{"s":"RF1355","d":"ROLLER FLOOR"},{"s":"RF945","d":"ROLLER FLOOR"},{"s":"RFH1045","d":"ROLLERFLOOR 1045x530x190MM"},{"s":"RFH1355","d":"ROLLERFLOOR 1355x500x190MM"},{"s":"RFH945","d":"ROLLERFLOOR 945x500x190MM"},{"s":"4100450","d":"ROOF BAR MNT KIT ASCENT RANGER"},{"s":"4140470","d":"ROOF BAR MOUNT KIT ASCENT"},{"s":"4140480","d":"ROOF BAR MOUNT KIT RANGER DC"},{"s":"4900090M","d":"ROOF CAGE ALLOY ASCENT CANOPY"},{"s":"5100400","d":"SAHARA TUBE KIT BLK 20IN LED"},{"s":"5100470","d":"SAHARA TUBE KIT BLK 20IN LED"},{"s":"5100490","d":"SAHARA TUBE KIT MATT BLACK"},{"s":"5100480","d":"SAHARA TUBE KIT POLISHED"},{"s":"5100310","d":"SAHARA TUBE SUITS T6 RANG/BT50"},{"s":"6600036","d":"SCREEN WINDOW FRONT 1154"},{"s":"6600033","d":"SCREEN WINDOW SLIDER 1118 DC"},{"s":"6600034","d":"SCREEN WINDOW SLIDER SHORT"},{"s":"6600035","d":"SCREEN WINDOW SLIDING 1524"},{"s":"6171422","d":"SEAL KIT CANOPY 5M"},{"s":"6171423","d":"SEAL KIT CANOPY 6M"},{"s":"RFFKADP1045L","d":"SIDE FLR ADAPT LH FOR RF1045"},{"s":"RFFKADP1355L","d":"SIDE FLR ADAPT LH FOR RF1355"},{"s":"RFFKADP945L","d":"SIDE FLR ADAPT LH FOR RF945"},{"s":"RFFKADP1045R","d":"SIDE FLR ADAPT RH FOR RF1045"},{"s":"RFFKADP1355R","d":"SIDE FLR ADAPT RH FOR RF1355"},{"s":"RFFKADP945R","d":"SIDE FLR ADAPT RH FOR RF945"},{"s":"3540370S","d":"SINGLE AIR COMPRESSOR KIT"},{"s":"SS986HP","d":"SNORKEL ARMAX"},{"s":"SS984HP","d":"SNORKEL ARMAX FORD EVEREST"},{"s":"SS982HP","d":"SNORKEL ARMAX FORD RANGER"},{"s":"SS984HF","d":"SNORKEL VSPEC FORD EVEREST"},{"s":"SS982HF","d":"SNORKEL VSPEC FORD RANGER"},{"s":"SS987HFD","d":"SNORKEL VSPEC RANGER EVEREST"},{"s":"6603030SP","d":"SP GAS STRUT 290MM 85N"},{"s":"668PK002SP","d":"SP GAS STRUT 310MM 100N"},{"s":"6603025SP","d":"SP GAS STRUT 320MM 160N"},{"s":"668PK001SP","d":"SP GAS STRUT 363MM 220N"},{"s":"180103SP","d":"SP NIPPLE SOLENOID ALU"},{"s":"3163222SP","d":"SP PLUG SNSR BLANKING PAIR"},{"s":"CO35SP","d":"SP PRESSURE SWITCH 1/4NPT"},{"s":"60101","d":"SPORT SHOCK BT50/RANGER R"},{"s":"60102","d":"SPORT SHOCK BT50/RANGER R"},{"s":"90038","d":"SPORT STRUT MY19 ON"},{"s":"90039","d":"SPORT STRUT MY19 ON"},{"s":"EL127R","d":"SPRING 300KG"},{"s":"EL128R","d":"SPRING 600KG"},{"s":"EL126R","d":"SPRING MED"},{"s":"EL131R","d":"SPRING R 300KG"},{"s":"EL132R","d":"SPRING R 600KG"},{"s":"EL130R","d":"SPRING R MED"},{"s":"SS982HFFK","d":"SS982HF OE FLARE TEMPLATE KIT"},{"s":"SS982HPFK","d":"SS982HP OE FLARE TEMPLATE KIT"},{"s":"3440640","d":"SUMMIT COMB SUIT MY22 EVEREST"},{"s":"3440510","d":"SUMMIT COMBAR RANGER EVEREST"},{"s":"3440570","d":"SUMMIT COMBAR SUIT EVEREST"},{"s":"3440600","d":"SUMMIT COMBAR SUIT MY22 RANGER"},{"s":"3440610","d":"SUMMIT COMBAR SUIT MY22 RANGER"},{"s":"3440540","d":"SUMMIT COMBAR SUITS PXIII"},{"s":"4440190","d":"SUMMIT F/RAIL EVEREST"},{"s":"4440150","d":"SUMMIT F/RAIL PX RANGER"},{"s":"4440290","d":"SUMMIT RAIL SUIT MY22 EVEREST"},{"s":"4440260","d":"SUMMIT RAIL SUIT MY22 RANGER"},{"s":"3640170","d":"SUMMIT RAW RSTB SENSOR"},{"s":"4440200","d":"SUMMIT RETURN EVEREST"},{"s":"4440160","d":"SUMMIT RETURN RANG/BT50"},{"s":"4440270","d":"SUMMIT RETURN SUITS 4440250"},{"s":"3500850","d":"SUMMIT RFL COVER"},{"s":"3501070","d":"SUMMIT RFL COVER MATT BLACK"},{"s":"3640180","d":"SUMMIT RSTB SUIT PX 11ON"},{"s":"3940600","d":"SUMMIT SAHARA SUIT MY22 RANGER"},{"s":"3940610","d":"SUMMIT SAHARA SUIT MY22 RANGER"},{"s":"3940630","d":"SUMMIT SAHARA SUITMY22 EVEREST"},{"s":"3940540","d":"SUMMIT SAHARA SUITS PXIII"},{"s":"4440250","d":"SUMMIT STEP 4440260/270/70070"},{"s":"4440180","d":"SUMMIT STEP SECTION EVEREST"},{"s":"4440140","d":"SUMMIT STEP SECTION RANG/BT50"},{"s":"4440280","d":"SUMMIT STEP SUIT MY22 EVEREST"},{"s":"4440300","d":"SUMMITRETURN SUIT MY22 EVEREST"},{"s":"4140135","d":"SUPPLEMENTARY BRACE KIT"},{"s":"4140138","d":"SUPPLEMENTARY BRACE KIT"},{"s":"6821440","d":"SWITCH MOUSE LIGHT ON OFF"},{"s":"4740050","d":"TAILGATE ASSIST SYSTEM"},{"s":"4740060","d":"TAILGATE ASSIST SYSTEM"},{"s":"4740070","d":"TAILGATE ASSIST SYSTEM"},{"s":"TAD119","d":"TANK DIESEL EVEREST RAPTOR"},{"s":"TAD110","d":"TANK DIESEL SUITS RANGER/BT50"},{"s":"6604006A","d":"TAPE 3M ADHESIVE"},{"s":"10900028","d":"THREADED SOCKET SURFACE MNT"},{"s":"10900042","d":"TRANSIT BAG CLASSIC FRIDGE 35L"},{"s":"10900043","d":"TRANSIT BAG CLASSIC FRIDGE 47L"},{"s":"10900044","d":"TRANSIT BAG CLASSIC FRIDGE 60L"},{"s":"10900045","d":"TRANSIT BAG CLASSIC FRIDGE 78L"},{"s":"10900051","d":"TRANSIT BAG ZERO FRIDGE 44L"},{"s":"10900052","d":"TRANSIT BAG ZERO FRIDGE 60L"},{"s":"10900053","d":"TRANSIT BAG ZERO FRIDGE 69L DZ"},{"s":"10900054","d":"TRANSIT BAG ZERO FRIDGE 96L DZ"},{"s":"TREDPROBB","d":"TRED PRO BLACK/BLACK"},{"s":"TREDPROBOB","d":"TRED PRO BLACK/ORANGE"},{"s":"TREDPROMGO","d":"TRED PRO MON GREY/ORANGE"},{"s":"T2SP115","d":"TRED THREADED MOUNTING PINS"},{"s":"5440300","d":"UNDER VEHICLE PROTECTION"},{"s":"3501010","d":"UNIVERSAL COMPRESSOR BRACKET"},{"s":"3501050","d":"UNIVERSAL SWITCH COUPLING BRKT"},{"s":"5440220","d":"UVP RANGER SUITS PX3"},{"s":"WHALIFS","d":"WHEEL ALIGNMENT CHECK"},{"s":"3540050","d":"WINCH INSTALL KIT"},{"s":"3540240","d":"WINCH INSTALL KIT"},{"s":"3500730","d":"WINCH INSTALL KIT ALLOY BAR"},{"s":"3501000","d":"WINCH INSTALL KIT SUMMIT"},{"s":"3500810","d":"WIRING LOOM"},{"s":"58X22/B","d":"X-LONG RECOVERY HITCH &"},{"s":"EL48XL","d":"XL LEAF"},{"s":"EL34XL","d":"XL LEAF SUIT EL SP# 49R 68R"}];
+
+    // TODO: maybe clean this up later but CBF
+
+    // Dealership list - loads from the data above
+    var DEALERS = [];
+    var DEALERSHIPS_DATA = [];
+
+    // Fitting locations + addresses
+    var LOCATIONS = [
+      { name: "ARB Auckland", address: "80 Highbrook Drive, East Tāmaki, Auckland 2013" },
+      { name: "ARB Hamilton", address: "35 Foreman Road, Avalon, Hamilton 3200" },
+      { name: "ARB Christchurch", address: "137 Blenheim Road, Riccarton, Christchurch 8041" },
+	  { name: "Autokraft 4x4", address: "693 Tremaine Avenue, Palmerston North Central, Palmerston North 4414" },
+	  { name: "Bay 4x4", address: "303 Hastings Street North, Hastings 4122" },
+	  { name: "Tauranga Diesel", address: "67 Koromiko Street, Judea, Tauranga 3110" },
+      { name: "4WD Solutions", address: "16 Cook Street, Leamington, Cambridge 3432" }	  
+    ];
+
+    var FLA_PARTS = {};
+    var PARTS_DATA = [];
+
+    // Suspension and Canopy configs - copied from the Python version.
+    // TODO: clean up this config object at some point, it's pretty messy
+
+    var TYPE_CONFIG = {
+      "FLA": {
+        "Ranger": {
+          front: {
+            "No bar": {
+              kit_number: "TBC",
+              parts: ["VARB3207", "VARB90052 x2"]
+            },
+            "Bull bar": {
+              kit_number: "TBC",
+              parts: ["VARB3208", "VARB90053 x2"]
+            },
+            "Bullbar Winch": {
+              kit_number: "TBC",
+              parts: ["VARB3209", "VARB90053 x2"]
+            }
+          },
+          rear: {
+            "Medium Load": {
+              kit_number: "TBC",
+              parts: [
+                "VARBEL130R x2",
+                "VARB60172 x2",
+                "VARBOMEGS20",
+                "VARBOMEGP10",
+                "VARBOMESB118 x2",
+                "VARBOMEU82 x4",
+                "VARBFK113",
+                "VARBFK115",
+                "VARBFK114"
+              ]
+            },
+            "Constant 300kg": {
+              kit_number: "TBC",
+              parts: [
+                "VARBEL131R x2",
+                "VARB60172 x2",
+                "VARBOMEGS20",
+                "VARBOMEGP10",
+                "VARBOMESB118 x2",
+                "VARBOMEU82 x4",
+                "VARBFK113",
+                "VARBFK115",
+                "VARBFK114"
+              ]
+            },
+            "Constant 600kg": {
+              kit_number: "TBC",
+              parts: [
+                "VARBEL132R x2",
+                "VARB60173 x2",
+                "VARBOMEGS20",
+                "VARBOMEGP10",
+                "VARBOMESB118 x2",
+                "VARBOMEU82 x4",
+                "VARBFK113",
+                "VARBFK115",
+                "VARBFK114"
+              ]
+            }
+          }
+        },
+        "Everest": {
+          front: {
+            "No bar": {
+              kit_number: "TBC",
+              parts: ["VARB3207", "VARB90052 x2"]
+            },
+            "Bull bar": {
+              kit_number: "TBC",
+              parts: ["VARB3208", "VARB90053 x2"]
+            },
+            "Bullbar Winch": {
+              kit_number: "TBC",
+              parts: ["VARB3209", "VARB90053 x2"]
+            }
+          },
+          rear: {
+            "Medium Load": {
+              kit_number: "TBC",
+              parts: ["VARB3212", "VARB60174 x2"]
+            },
+            "Constant 300kg": {
+              kit_number: "TBC",
+              parts: ["VARB3213", "VARB60175 x2"]
+            },
+            "Constant 600kg": {
+              kit_number: "TBC",
+              parts: ["VARB3214", "VARB60175 x2"]
+            }
+          }
+        }
+      },
+      "Nitro Plus": {},
+      "MT64": {},
+      "BP51": {}
+    };
+
+    // Clone of Nitro Plus / MT64 / BP51 configs from Python
+    (function addOtherTypes() {
+      var nitroRangerEverest = {
+        front: {
+          "No bar": { kit_number: "4024", parts: ["4024", "93052 x2"] },
+          "Bull bar": { kit_number: "4024", parts: ["4024", "93053 x2"] },
+          "Bullbar Winch": { kit_number: "4024", parts: ["4024", "93053 x2"] }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "EL130R x2",
+              "63172 x2",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL131R x2",
+              "63173 x2",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL132R x2",
+              "63178 x2",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU83 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          }
+        }
+      };
+
+      TYPE_CONFIG["Nitro Plus"]["Ranger"] = nitroRangerEverest;
+      TYPE_CONFIG["Nitro Plus"]["Everest"] = nitroRangerEverest;
+
+      var mt64RangerEverest = {
+        front: {
+          "No bar": { kit_number: "TBC", parts: ["4024", "MT64902001 x2"] },
+          "Bull bar": { kit_number: "TBC", parts: ["4024", "MT64902001 x2"] },
+          "Bullbar Winch": { kit_number: "TBC", parts: ["4024", "MT64902002 x2"] }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "EL130R x2",
+              "MT64602003L",
+              "MT64602003R",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL131R x2",
+              "MT64602004L",
+              "MT64602004R",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL132R x2",
+              "MT64602004L",
+              "MT64602004R",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU83 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          }
+        }
+      };
+
+      TYPE_CONFIG["MT64"]["Ranger"] = mt64RangerEverest;
+      TYPE_CONFIG["MT64"]["Everest"] = mt64RangerEverest;
+
+      var bp51RangerEverest = {
+        front: {
+          "No bar": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          },
+          "Bull bar": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          },
+          "Bullbar Winch": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "BP5160055R",
+              "BP5160055L",
+              "VM80010052",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "BP5160055R",
+              "BP5160055L",
+              "VM80010052",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "BP5160055R",
+              "BP5160055L",
+              "VM80010052",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU83 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          }
+        }
+      };
+
+      TYPE_CONFIG["BP51"]["Ranger"] = bp51RangerEverest;
+      TYPE_CONFIG["BP51"]["Everest"] = bp51RangerEverest;
+    })();
+
+    // Canopy config
+    var CANOPY_CONFIG = {
+      "XLT": {
+        "Classic": [
+          {
+            name: "Classic - dual cab",
+            parts: [
+              "VARBCLS79A  Classic Canopy 2 Sliding windows",
+              "VARBCLS79C  Classic Canopy lift up windows",
+              "VARBCLS79B  Classic Canopy Lift up Left windows",
+              "VARBCLS79D  Classic Canopy Lift up Right windows"
+            ]
+          },
+          {
+            name: "Classic - extra cab",
+            parts: [
+              "VARBCLS77A  Classic Canopy EXTRA CAB 2 Sliding windows",
+              "VARBCLS77C  Classic Canopy EXTRA CAB 2 lift up windows",
+              "VARBCLS77B  Classic Canopy EXTRA CAB Lift up Left windows",
+              "VARBCLS77D  Classic Canopy EXTRA CAB Lift up Right windows"
+            ]
+          }
+        ],
+        "Classic Plus": [
+          {
+            name: "Classic Plus - dual cab",
+            parts: [
+              "VARBXCLS17A  Classic Canopy Plus 2 Sliding windows",
+              "VARBXCLS17C  Classic Canopy Plus 2 lift up windows",
+              "VARBXCLS17B  Classic Canopy Plus Lift up Left windows",
+              "VARBXCLS17D  Classic Canopy Plus Lift up Right windows"
+            ]
+          }
+        ],
+        "Ascent": [
+          {
+            name: "Ascent",
+            parts: [
+              "VARBAC16C Ascent Canopy"
+            ]
+          }
+        ],
+        "Hardlid": [
+          {
+            name: "Hardlid",
+            parts: [
+              "VARBHLID02P Hardlid"
+            ]
+          }
+        ]
+      },
+      "Wildtrak": {
+        "Classic": [
+          {
+            name: "Classic - dual cab",
+            parts: [
+              "VARBCLS79A  Classic Canopy 2 Sliding windows",
+              "VARBCLS79C  Classic Canopy lift up windows",
+              "VARBCLS79B  Classic Canopy Lift up Left windows",
+              "VARBCLS79D  Classic Canopy Lift up Right windows"
+            ]
+          },
+          {
+            name: "Classic - extra cab",
+            parts: [
+              "VARBCLS77A  Classic Canopy EXTRA CAB 2 Sliding windows",
+              "VARBCLS77C  Classic Canopy EXTRA CAB 2 lift up windows",
+              "VARBCLS77B  Classic Canopy EXTRA CAB Lift up Left windows",
+              "VARBCLS77D  Classic Canopy EXTRA CAB Lift up Right windows"
+            ]
+          }
+        ],
+        "Classic Plus": [
+          {
+            name: "Classic Plus - dual cab",
+            parts: [
+              "VARBXCLS17A  Classic Canopy Plus 2 Sliding windows",
+              "VARBXCLS17C  Classic Canopy Plus 2 lift up windows",
+              "VARBXCLS17B  Classic Canopy Plus Lift up Left windows",
+              "VARBXCLS17D  Classic Canopy Plus Lift up Right windows"
+            ]
+          }
+        ],
+        "Ascent": [
+          {
+            name: "Ascent",
+            parts: [
+              "VARBAC16C Ascent Canopy"
+            ]
+          }
+        ],
+        "Hardlid": [
+          {
+            name: "Hardlid",
+            parts: [
+              "VARBHLID02P Hardlid"
+            ]
+          }
+        ]
+      }
+    };
+
+    // Accessory options
+    var ACCESSORY_OPTIONS = {
+      "XLT": {
+        "Classic": [
+          "Security Mesh",
+          "ARB Canopy Vent",
+          "Internal Frame kit",
+          "3 Bar Roof rack"
+        ],
+        "Classic Plus": [
+          "Security Mesh",
+          "ARB Canopy Vent",
+          "Internal Frame kit",
+          "3 Bar Roof rack"
+        ],
+        "Ascent": [
+          "Internal Frame kit",
+          "3 Bar Roof rack"
+        ],
+        "Hardlid": [
+          "Heavy Load gas Struts"
+        ]
+      },
+      "Wildtrak": {
+        "Classic": [
+          "Security Mesh",
+          "ARB Canopy Vent",
+          "Internal Frame kit",
+          "3 Bar Roof rack"
+        ],
+        "Classic Plus": [
+          "Security Mesh",
+          "ARB Canopy Vent",
+          "Internal Frame kit",
+          "3 Bar Roof rack"
+        ],
+        "Ascent": [
+          "Internal Frame kit",
+          "3 Bar Roof rack"
+        ],
+        "Hardlid": [
+          "Heavy Load gas Struts"
+        ]
+      }
+    };
+
+    var CANOPY_TYPE_MODELS = {
+      "XLT": ["Classic", "Classic Plus", "Ascent", "Hardlid"],
+      "Wildtrak": ["Classic", "Classic Plus", "Ascent", "Hardlid"]
+    };
+
+    // --------- Tab switching ---------
+    function showTab(name) {
+      var tabs = ["order", "suspension", "canopy"];
+      // Loop through each tab and show/hide
+      for (var i = 0; i < tabs.length; i++) {
+        var t = tabs[i];
+        document.getElementById("tab-" + t).style.display = (t === name) ? "" : "none";
+        var btn = document.getElementById("tab-" + t + "-btn");
+        if (btn) {
+          btn.classList.toggle("active", t === name);
+        }
+      }
+
+      // Make sure order tab has rows when switching to it
+      if (name === "order") {
+        ensureOrderTableRows();
+        ensureNonFlaTableRows();
+      }
+      
+    }
+
+
+    // --------- Order parts table helpers ---------
+    var MAX_ORDER_LINES = 17;
+
+    function ensureOrderTableRows() {
+      var tbody = document.getElementById("orderPartsTable").querySelector("tbody");
+      if (tbody.children.length === 0) {
+        addEmptyOrderRow();
+      }
+    }
+
+    function attachCodeEvents(codeInput, descInput) {
+
+      codeInput.addEventListener("change", function() {
+        var code = codeInput.value.trim();
+        if (FLA_PARTS[code]) {
+          descInput.value = FLA_PARTS[code];
+        }
+        // Add a new row if this one has something in it?
+        if (code) {
+          var tbody = document.getElementById("orderPartsTable").querySelector("tbody");
+          var rows = tbody.children;
+          // Check if this is the last row
+          var isLastRow = true;
+          for (var i = 0; i < rows.length; i++) {
+            if (rows[i].children[0].querySelector("input") === codeInput) {
+              if (i === rows.length - 1) {
+                isLastRow = true;
+              } else {
+                isLastRow = false;
+              }
+              break;
+            }
+          }
+          if (isLastRow && tbody.children.length < MAX_ORDER_LINES) {
+            addEmptyOrderRow();
+          }
+        }
+      });
+    }
+
+    function addEmptyOrderRow() {
+      var tbody = document.getElementById("orderPartsTable").querySelector("tbody");
+      if (tbody.children.length >= MAX_ORDER_LINES) return;
+
+      var tr = document.createElement("tr");
+
+      var tdCode = document.createElement("td");
+      var inputCode = document.createElement("input");
+      inputCode.type = "text";
+      inputCode.size = 15;
+      inputCode.setAttribute("list", "flaPartCodes");
+      tdCode.appendChild(inputCode);
+
+      var tdQty = document.createElement("td");
+      var inputQty = document.createElement("input");
+      inputQty.type = "text";
+      inputQty.size = 4;
+      tdQty.appendChild(inputQty);
+
+      var tdDesc = document.createElement("td");
+      var inputDesc = document.createElement("input");
+      inputDesc.type = "text";
+      inputDesc.size = 60;
+      tdDesc.appendChild(inputDesc);
+
+      tr.appendChild(tdCode);
+      tr.appendChild(tdQty);
+      tr.appendChild(tdDesc);
+
+      tbody.appendChild(tr);
+
+      attachCodeEvents(inputCode, inputDesc);
+    }
+
+    // Non FLA parts table functions - pretty much the same as FLA
+    function ensureNonFlaTableRows() {
+      var tbody = document.getElementById("nonFlaPartsTable").querySelector("tbody");
+      if (tbody.children.length === 0) {
+        addEmptyNonFlaRow();
+      }
+    }
+
+    function addEmptyNonFlaRow() {
+      var tbody = document.getElementById("nonFlaPartsTable").querySelector("tbody");
+      if (tbody.children.length >= MAX_ORDER_LINES) return;
+
+      var tr = document.createElement("tr");
+
+      // Code column
+      var tdCode = document.createElement("td");
+      var inputCode = document.createElement("input");
+      inputCode.type = "text";
+      inputCode.size = 15;
+      // Connect to the Non FLA datalist
+      inputCode.setAttribute("list", "nonFlaPartCodes");
+      tdCode.appendChild(inputCode);
+
+      // Qty column
+      var tdQty = document.createElement("td");
+      var inputQty = document.createElement("input");
+      inputQty.type = "text";
+      inputQty.size = 4;
+      tdQty.appendChild(inputQty);
+
+      // Description column
+      var tdDesc = document.createElement("td");
+      var inputDesc = document.createElement("input");
+      inputDesc.type = "text";
+      inputDesc.size = 60;
+      tdDesc.appendChild(inputDesc);
+
+      tr.appendChild(tdCode);
+      tr.appendChild(tdQty);
+      tr.appendChild(tdDesc);
+
+      tbody.appendChild(tr);
+
+      // Auto-fill description when code is selected
+      inputCode.addEventListener("change", function() {
+        var code = inputCode.value.trim();
+        if (FLA_PARTS[code]) {
+          inputDesc.value = FLA_PARTS[code];
+        }
+        if (code) {
+          var tbody = document.getElementById("nonFlaPartsTable").querySelector("tbody");
+          var rows = tbody.children;
+          var isLastRow = true;
+          for (var i = 0; i < rows.length; i++) {
+            if (rows[i].children[0].querySelector("input") === inputCode) {
+              if (i === rows.length - 1) {
+                isLastRow = true;
+              } else {
+                isLastRow = false;
+              }
+              break;
+            }
+          }
+          // If last row and has content, add new row
+          if (isLastRow && tbody.children.length < MAX_ORDER_LINES) {
+            addEmptyNonFlaRow();
+          }
+        }
+      });
+    }
+
+    function findFirstEmptyRow() {
+      var rows = document.getElementById("orderPartsTable").querySelector("tbody").children;
+      for (var i = 0; i < rows.length; i++) {
+        var codeInput = rows[i].children[0].querySelector("input");
+        if (!codeInput.value.trim()) {
+          return rows[i];
+        }
+      }
+      if (rows.length < MAX_ORDER_LINES) {
+        addEmptyOrderRow();
+        var newRows = document.getElementById("orderPartsTable").querySelector("tbody").children;
+        return newRows[newRows.length - 1];
+      }
+      return null; // full
+    }
+
+    // Same thing but for Non FLA table
+    function findFirstEmptyNonFlaRow() {
+      var rows = document.getElementById("nonFlaPartsTable").querySelector("tbody").children;
+      for (var i = 0; i < rows.length; i++) {
+        var codeInput = rows[i].children[0].querySelector("input");
+        if (!codeInput.value.trim()) {
+          return rows[i];
+        }
+      }
+      if (rows.length < MAX_ORDER_LINES) {
+        addEmptyNonFlaRow();
+        var newRows = document.getElementById("nonFlaPartsTable").querySelector("tbody").children;
+        return newRows[newRows.length - 1];
+      }
+      return null; // full
+    }
+
+    function addPartToOrderGrid(code, qty, descOverride) {
+      if (!code || !code.trim()) return true;
+      qty = qty && qty > 0 ? qty : 1;
+
+      // Check if part starts with VARB
+      var cleanCode = code.trim().toUpperCase();
+      var isFLA = cleanCode.startsWith("VARB");
+      
+      // Route to the right table
+      if (isFLA) {
+        // Goes to FLA table
+        var row = findFirstEmptyRow();
+        if (!row) return false;
+
+        var codeInput = row.children[0].querySelector("input");
+        var qtyInput = row.children[1].querySelector("input");
+        var descInput = row.children[2].querySelector("input");
+
+        codeInput.value = code.trim();
+        qtyInput.value = String(qty);
+
+        var desc = "";
+        if (descOverride != null) {
+          desc = descOverride;
+        } else if (FLA_PARTS[code.trim()]) {
+          desc = FLA_PARTS[code.trim()];
+        }
+        descInput.value = desc;
+        
+        // Make sure there's always an empty row at the end
+        var tbody = document.getElementById("orderPartsTable").querySelector("tbody");
+        if (tbody.children.length < MAX_ORDER_LINES) {
+          var hasEmptyRow = false;
+          for (var i = 0; i < tbody.children.length; i++) {
+            var checkInput = tbody.children[i].children[0].querySelector("input");
+            if (!checkInput.value.trim()) {
+              hasEmptyRow = true;
+              break;
+            }
+          }
+          if (!hasEmptyRow) {
+            addEmptyOrderRow();
+          }
+        }
+        
+        return true;
+      } else {
+        // Goes to Non FLA table
+        var row = findFirstEmptyNonFlaRow();
+        if (!row) return false;
+
+        var codeInput = row.children[0].querySelector("input");
+        var qtyInput = row.children[1].querySelector("input");
+        var descInput = row.children[2].querySelector("input");
+
+        codeInput.value = code.trim();
+        qtyInput.value = String(qty);
+        descInput.value = descOverride || "";
+        
+        // Make sure there's always an empty row at the end
+        var tbody = document.getElementById("nonFlaPartsTable").querySelector("tbody");
+        if (tbody.children.length < MAX_ORDER_LINES) {
+          var hasEmptyRow = false;
+          for (var i = 0; i < tbody.children.length; i++) {
+            var checkInput = tbody.children[i].children[0].querySelector("input");
+            if (!checkInput.value.trim()) {
+              hasEmptyRow = true;
+              break;
+            }
+          }
+          if (!hasEmptyRow) {
+            addEmptyNonFlaRow();
+          }
+        }
+        
+        return true;
+      }
+    }
+
+    // --------- Suspension logic ---------
+    function populateSuspensionModels() {
+      var suspTypeSel = document.getElementById("suspType");
+      var suspModelSel = document.getElementById("suspModel");
+      var type = suspTypeSel.value;
+
+      var models = Object.keys(TYPE_CONFIG[type] || {});
+      suspModelSel.innerHTML = "";
+      for (var i = 0; i < models.length; i++) {
+        var m = models[i];
+        var opt = document.createElement("option");
+        opt.value = m;
+        opt.textContent = m;
+        suspModelSel.appendChild(opt);
+      }
+
+      if (models.length > 0) {
+        suspModelSel.value = models[0];
+      }
+
+      updateSuspensionOptions();
+      updateSuspensionImage();
+    }
+
+    function updateSuspensionOptions() {
+      var type = document.getElementById("suspType").value;
+      var model = document.getElementById("suspModel").value;
+      var cfg = TYPE_CONFIG[type][model];
+      if (!cfg) return;
+
+      var frontSel = document.getElementById("frontOption");
+      var rearSel = document.getElementById("rearOption");
+
+      frontSel.innerHTML = "";
+      var frontKeys = Object.keys(cfg.front);
+      for (var i = 0; i < frontKeys.length; i++) {
+        var k = frontKeys[i];
+        var opt = document.createElement("option");
+        opt.value = k;
+        opt.textContent = k;
+        frontSel.appendChild(opt);
+      }
+
+      rearSel.innerHTML = "";
+      var rearKeys = Object.keys(cfg.rear);
+      for (var i = 0; i < rearKeys.length; i++) {
+        var k = rearKeys[i];
+        var opt = document.createElement("option");
+        opt.value = k;
+        opt.textContent = k;
+        rearSel.appendChild(opt);
+      }
+
+      if (frontSel.options.length > 0) frontSel.value = frontSel.options[0].value;
+      if (rearSel.options.length > 0) rearSel.value = rearSel.options[0].value;
+
+      updateFrontDisplay();
+      updateRearDisplay();
+      updateSuspensionWarning();
+    }
+
+    function updateSuspensionWarning() {
+      var type = document.getElementById("suspType").value;
+      var warningBox = document.getElementById("suspensionWarning");
+      
+      // Show warning for Nito Plus, MT64, and BP51
+      if (type === "Nitro Plus") {
+        warningBox.textContent = "⚠️ WARNING: May require certification";
+      } else if (type === "MT64") {
+        warningBox.textContent = "⚠️ WARNING: May require certification";
+      } else if (type === "BP51") {
+        warningBox.textContent = "⚠️ WARNING: May require certification";
+      } else {
+        // No warning for FLA
+        warningBox.textContent = "";
+      }
+    }
+
+    function updateFrontDisplay() {
+      var type = document.getElementById("suspType").value;
+      var model = document.getElementById("suspModel").value;
+      var cfg = TYPE_CONFIG[type][model];
+      if (!cfg) return;
+      var optName = document.getElementById("frontOption").value;
+      var opt = cfg.front[optName];
+      var kitSpan = document.getElementById("frontKit");
+      var partsArea = document.getElementById("frontParts");
+      if (!opt) {
+        kitSpan.textContent = "-";
+        partsArea.value = "";
+        return;
+      }
+      kitSpan.textContent = opt.kit_number;
+      partsArea.value = opt.parts.join("\n");
+    }
+
+    function updateRearDisplay() {
+      var type = document.getElementById("suspType").value;
+      var model = document.getElementById("suspModel").value;
+      var cfg = TYPE_CONFIG[type][model];
+      if (!cfg) return;
+      var optName = document.getElementById("rearOption").value;
+      var opt = cfg.rear[optName];
+      var kitSpan = document.getElementById("rearKit");
+      var partsArea = document.getElementById("rearParts");
+      if (!opt) {
+        kitSpan.textContent = "-";
+        partsArea.value = "";
+        return;
+      }
+      kitSpan.textContent = opt.kit_number;
+      partsArea.value = opt.parts.join("\n");
+    }
+
+    function updateSuspensionImage() {
+      var model = document.getElementById("suspModel").value;
+      var img = document.getElementById("suspensionImage");
+      if (model === "Ranger") {
+        img.src = "ranger.png";
+      } else if (model === "Everest") {
+        img.src = "everest.png";
+      } else {
+        img.removeAttribute("src");
+        img.alt = "No image";
+      }
+    }
+
+    function addSuspensionToOrder() {
+      ensureOrderTableRows();
+      ensureNonFlaTableRows();
+
+      var frontParts = document.getElementById("frontParts").value.split("\n");
+      var rearParts = document.getElementById("rearParts").value.split("\n");
+
+      var addedAny = false;
+      var full = false;
+
+      function processLines(lines) {
+        for (var j = 0; j < lines.length; j++) {
+          var raw = lines[j];
+          var line = raw.trim();
+          if (!line) continue;
+          var tokens = line.split(/\s+/);
+          if (tokens.length === 0) continue;
+          var code = tokens[0];
+          var qty = 1;
+          for (var i = 1; i < tokens.length; i++) {
+            var t = tokens[i].toLowerCase();
+            if (t.startsWith("x") && /^\d+$/.test(t.slice(1))) {
+              qty = parseInt(t.slice(1), 10);
+              break;
+            }
+          }
+          if (!addPartToOrderGrid(code, qty, null)) {
+            full = true;
+            break;
+          }
+          addedAny = true;
+        }
+      }
+
+      processLines(frontParts);
+      if (!full) processLines(rearParts);
+
+      if (full) {
+        alert("Order parts section is full (17 lines). Some suspension parts may not have been added.");
+      } else if (!addedAny) {
+        alert("There are no suspension parts to add.");
+      } else {
+        alert("Suspension parts added to the order form.");
+      }
+    }
+
+    // --------- Canopy logic ---------
+
+    function updateCanopyModels() {
+      var type = document.getElementById("canopyType").value;
+      var modelSel = document.getElementById("canopyModel");
+      modelSel.innerHTML = "";
+      var canopyModels = CANOPY_TYPE_MODELS[type] || [];
+      for (var i = 0; i < canopyModels.length; i++) {
+        var m = canopyModels[i];
+        var opt = document.createElement("option");
+        opt.value = m;
+        opt.textContent = m;
+        modelSel.appendChild(opt);
+      }
+      if (modelSel.options.length > 0) {
+        modelSel.value = modelSel.options[0].value;
+      }
+      updateCanopyOptions();
+      updateCanopyAccessoryOptions();
+      updateCanopyImage();
+    }
+
+    function updateCanopyOptions() {
+      var type = document.getElementById("canopyType").value;
+      var model = document.getElementById("canopyModel").value;
+      var options = (CANOPY_CONFIG[type] && CANOPY_CONFIG[type][model]) || [];
+      var sel = document.getElementById("canopyOption");
+      sel.innerHTML = "";
+      for (var i = 0; i < options.length; i++) {
+        var o = options[i];
+        var opt = document.createElement("option");
+        opt.value = o.name;
+        opt.textContent = o.name;
+        sel.appendChild(opt);
+      }
+      if (sel.options.length > 0) {
+        sel.value = sel.options[0].value;
+      }
+      updateCanopyWindowOptions();
+      updateCanopyDisplay();
+    }
+
+    function updateCanopyWindowOptions() {
+      var optionName = document.getElementById("canopyOption").value;
+      var windowsSel = document.getElementById("canopyWindows");
+      var special = new Set([
+        "Classic - dual cab",
+        "Classic - extra cab",
+        "Classic Plus - dual cab"
+      ]);
+
+      windowsSel.innerHTML = "";
+      var values = ["All"];
+      if (special.has(optionName)) {
+        values = [
+          "All",
+          "2 sliding windows",
+          "2 lift up windows",
+          "Lift up left window",
+          "Lift up right window"
+        ];
+      }
+      for (var i = 0; i < values.length; i++) {
+        var v = values[i];
+        var opt = document.createElement("option");
+        opt.value = v;
+        opt.textContent = v;
+        windowsSel.appendChild(opt);
+      }
+      windowsSel.value = values[0];
+    }
+
+    function updateCanopyDisplay() {
+      var type = document.getElementById("canopyType").value;
+      var model = document.getElementById("canopyModel").value;
+      var selectedName = document.getElementById("canopyOption").value;
+      var windowChoice = document.getElementById("canopyWindows").value;
+
+      var options = (CANOPY_CONFIG[type] && CANOPY_CONFIG[type][model]) || [];
+      var chosen = null;
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].name === selectedName) {
+          chosen = options[i];
+          break;
+        }
+      }
+      var partsArea = document.getElementById("canopyParts");
+
+      if (!chosen) {
+        partsArea.value = "";
+        return;
+      }
+
+      var special = new Set([
+        "Classic - dual cab",
+        "Classic - extra cab",
+        "Classic Plus - dual cab"
+      ]);
+
+      var windowIndexMap = {
+        "2 sliding windows": 0,
+        "2 lift up windows": 1,
+        "Lift up left window": 2,
+        "Lift up right window": 3
+      };
+
+      var linesToShow = [];
+
+      if (special.has(selectedName) && windowChoice in windowIndexMap) {
+        var idx = windowIndexMap[windowChoice];
+        if (idx >= 0 && idx < chosen.parts.length) {
+          linesToShow.push(chosen.parts[idx]);
+        } else {
+          linesToShow = chosen.parts.slice();
+        }
+      } else {
+        linesToShow = chosen.parts.slice();
+      }
+
+      if (windowChoice && windowChoice !== "") {
+        if (model === "Classic" || model === "Classic Plus") {
+          linesToShow.push("VARBCC15  PAINT CODE");
+        } else if (model === "Ascent") {
+          linesToShow.push("VARBCC16  PAINT CODE");
+        }
+      }
+
+      partsArea.value = linesToShow.join("\n");
+    }
+
+    function updateCanopyAccessoryOptions() {
+      var type = document.getElementById("canopyType").value;
+      var model = document.getElementById("canopyModel").value;
+      var accSel = document.getElementById("canopyAccessory");
+      
+      // Get accessories for this type and model
+      var base = [];
+      if (ACCESSORY_OPTIONS[type] && ACCESSORY_OPTIONS[type][model]) {
+        base = ACCESSORY_OPTIONS[type][model];
+      }
+      
+      accSel.innerHTML = "";
+
+      var values = ["None"].concat(base);
+      for (var i = 0; i < values.length; i++) {
+        var opt = document.createElement("option");
+        opt.value = values[i];
+        opt.textContent = values[i];
+        accSel.appendChild(opt);
+      }
+      accSel.value = "None";
+
+      updateCanopyAccessoryDisplay();
+    }
+
+    function updateCanopyAccessoryDisplay() {
+      var type = document.getElementById("canopyType").value;
+      var model = document.getElementById("canopyModel").value;
+      var sel = document.getElementById("canopyAccessory").value;
+      var area = document.getElementById("canopyAccessoryParts");
+
+      if (!sel || sel === "None") {
+        // Don't clear - just do nothing
+        return;
+      }
+
+      var lines = [];
+
+      if (sel === "Security Mesh") {
+        if (model === "Classic" || model === "Classic Plus") {
+          lines.push("VARB6600034  Security Mesh, SIDE SLIDING WINDOW PER SIDE");
+        } else if (model === "Ascent") {
+          lines.push("VARB6600050  ASCENT SIDE WINDOW MESH FIXED PER SIDE");
+        }
+      } else if (sel === "ARB Canopy Vent") {
+        lines.push("VARB4700030  ARB Canopy Vent V2");
+      } else if (sel === "Internal Frame kit") {
+        if (model === "Classic" || model === "Classic Plus") {
+          lines.push("VARB4140100  ROOF RACK Internal Frame kit");
+          lines.push("VARB4140480  ROOF RACK MOUNT KIT");
+        } else if (model === "Ascent") {
+          lines.push("VARB4140470  ROOF RACK MOUNT KIT");
+          lines.push("VARB4140090  ROOF RACK Internal Frame kit");
+        }
+      } else if (sel === "3 Bar Roof rack") {
+        // Different parts for XLT vs Wildtrak, and Classic/Classic Plus vs Ascent
+        if (type === "XLT") {
+          if (model === "Classic" || model === "Classic Plus") {
+            lines.push("RRTS554");
+            lines.push("RRCP58-BK");
+            lines.push("RRX300H4");
+            lines.push("RSUB0798");
+            lines.push("RVA-FK1");
+            lines.push("RRL110S2");
+            lines.push("R739AHALF");
+            lines.push("RSZ137B (QTY: 3)");
+            lines.push("RQMVA10");
+          } else if (model === "Ascent") {
+            lines.push("RRTS554");
+            lines.push("RRCP58-BK");
+            lines.push("RRX300H4");
+            lines.push("RSUB0798");
+            lines.push("VARB4140470");
+            lines.push("VARB4140090");
+            lines.push("RSZ137B (QTY: 3)");
+            lines.push("RQMVA10");
+          }
+        } else if (type === "Wildtrak") {
+          if (model === "Classic" || model === "Classic Plus") {
+            lines.push("RVA-FK1");
+            lines.push("RRL110S2");
+            lines.push("R739AHALF");
+            lines.push("RSZ137B (QTY: 3)");
+            lines.push("RRX100");
+          } else if (model === "Ascent") {
+            lines.push("VARB4140470");
+            lines.push("VARB4140090");
+            lines.push("RSZ137B (QTY: 3)");
+            lines.push("RRX100");
+          }
+        }
+      } else if (sel === "Heavy Load gas Struts") {
+        lines.push("VARB176202  Heavy Load gas Struts");
+      }
+
+      // Append to existing content instead of replacing
+      var currentContent = area.value.trim();
+      var newContent = lines.join("\n");
+      
+      if (currentContent) {
+        // Add new lines after existing content
+        area.value = currentContent + "\n" + newContent;
+      } else {
+        // No existing content, just add new
+        area.value = newContent;
+      }
+    }
+
+    function updateCanopyImage() {
+      var model = document.getElementById("canopyModel").value;
+      var img = document.getElementById("canopyImage");
+      if (model === "Classic") {
+        img.src = "Classic.png";
+      } else if (model === "Classic Plus") {
+        img.src = "classic_plus.png";
+      } else if (model === "Ascent") {
+        img.src = "ascent.png";
+      } else if (model === "Hardlid") {
+        img.src = "Hardlid.png";
+      } else {
+        img.removeAttribute("src");
+        img.alt = "No image";
+      }
+    }
+
+    function addCanopyToOrder() {
+      ensureOrderTableRows();
+      ensureNonFlaTableRows();
+
+      var canopyLines = document.getElementById("canopyParts").value.split("\n");
+      var accessoryLines = document.getElementById("canopyAccessoryParts").value.split("\n");
+
+      var addedAny = false;
+      var full = false;
+
+      function processLines(lines) {
+        for (var j = 0; j < lines.length; j++) {
+          var raw = lines[j];
+          var line = raw.trim();
+          if (!line) continue;
+          
+          // Check if line has (QTY: X) format
+          var qty = 1;
+          var cleanLine = line;
+          
+          // Look for (QTY: 3) or similar
+          var qtyMatch = line.match(/\(QTY:\s*(\d+)\)/i);
+          if (qtyMatch) {
+            qty = parseInt(qtyMatch[1]);
+            // Remove the (QTY: X) part from the line
+            cleanLine = line.replace(/\(QTY:\s*\d+\)/i, '').trim();
+          }
+          
+          var tokens = cleanLine.split(/\s+/);
+          if (tokens.length === 0) continue;
+
+          var code = tokens[0];
+          var rest = cleanLine.slice(code.length).trim();
+          var desc = rest || null;
+
+          if (!addPartToOrderGrid(code, qty, desc)) {
+            full = true;
+            break;
+          }
+          addedAny = true;
+        }
+      }
+
+      processLines(canopyLines);
+      if (!full) processLines(accessoryLines);
+
+      if (full) {
+        alert("Order parts section is full (17 lines). Some canopy parts may not have been added.");
+      } else if (!addedAny) {
+        alert("There are no canopy parts to add.");
+      } else {
+        alert("Canopy parts added to the order form.");
+      }
+    }
+
+    async function loadDealerships() {
+      try {
+        console.log('Loading dealerships...');
+        
+        DEALERSHIPS_DATA = EMBEDDED_DEALERSHIPS;
+        DEALERS = [];
+        for (var i = 0; i < EMBEDDED_DEALERSHIPS.length; i++) {
+          DEALERS.push(EMBEDDED_DEALERSHIPS[i].value);
+        }
+        
+        console.log('Loaded ' + DEALERS.length + ' dealerships');
+        return true;
+      } catch (error) {
+        console.error('Error loading dealerships:', error);
+        DEALERS = ["Error - check console"];
+        return false;
+      }
+    }
+
+    async function loadPartCodes() {
+      try {
+        console.log('Loading part codes...');
+        
+        // figured out I need to expand the compact data here
+        PARTS_DATA = [];
+        for (var i = 0; i < EMBEDDED_PARTS.length; i++) {
+          var part = EMBEDDED_PARTS[i];
+          PARTS_DATA.push({
+            shortCode: part.s,
+            description: part.d,
+            fullCode: 'VARB' + part.s,
+            label: part.s + " - " + part.d,
+            value: part.s
+          });
+        }
+        
+        // Build lookup table - took a while to get this working!
+        for (var i = 0; i < EMBEDDED_PARTS.length; i++) {
+          var part = EMBEDDED_PARTS[i];
+          FLA_PARTS[part.s] = part.d;
+          FLA_PARTS['VARB' + part.s] = part.d;
+        }
+        
+        console.log('Loaded ' + PARTS_DATA.length + ' part codes');
+        return true;
+      } catch (error) {
+        console.error('Error loading part codes:', error);
+        FLA_PARTS = {"ERROR": "Failed to load"};
+        return false;
+      }
+    }
+
+    // Search parts - handy for finding stuff
+    function searchPartCodes(keyword) {
+      var lowerKeyword = keyword.toLowerCase();
+      var results = [];
+      for (var i = 0; i < PARTS_DATA.length; i++) {
+        var part = PARTS_DATA[i];
+        if (part.shortCode.toLowerCase().includes(lowerKeyword) ||
+            part.fullCode.toLowerCase().includes(lowerKeyword) ||
+            part.description.toLowerCase().includes(lowerKeyword)) {
+          results.push(part);
+        }
+      }
+      return results;
+    }
+
+    // Get info about a specific part
+    function getPartInfo(code) {
+      for (var i = 0; i < PARTS_DATA.length; i++) {
+        var part = PARTS_DATA[i];
+        if (part.shortCode === code || part.fullCode === code) {
+          return part;
+        }
+      }
+      return null;
+    }
+
+    // Auto-fill the freight address when needed
+    // This runs when dealership or supply method changes
+    function fillFreightAddress() {
+      var dealer = document.getElementById("dealerName").value;
+      var method = document.getElementById("supplyMethod").value;
+      var addressBox = document.getElementById("freightAddress");
+      var fittingLocationBox = document.getElementById("fittingLocation");
+      
+      // Only fill if "Freight to MVD" is selected
+      if (method === "Freight to MVD" && dealer) {
+        // Find the dealership in our list
+        var found = null;
+        for (var i = 0; i < DEALERSHIPS_DATA.length; i++) {
+          if (DEALERSHIPS_DATA[i].value === dealer) {
+            found = DEALERSHIPS_DATA[i];
+            break;
+          }
+        }
+        if (found && found.address) {
+          addressBox.value = found.address;
+        }
+        // Clear fitting location - not needed for freight
+        fittingLocationBox.value = "";
+      } else if (method === "Fit by ARB") {
+        // Clear freight address if they pick Fit by ARB
+        addressBox.value = "";
+        // Fitting location is needed for Fit by ARB
+      }
+    }
+
+    // Dealership and Location dropdowns
+
+
+    function populateDealershipDropdown() {
+      var sel = document.getElementById("dealerName");
+      sel.innerHTML = "";
+      for (var i = 0; i < DEALERS.length; i++) {
+        var name = DEALERS[i];
+        var opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        sel.appendChild(opt);
+      }
+    }
+
+    function populateLocationDropdown() {
+      var sel = document.getElementById("fittingLocation");
+      sel.innerHTML = "";
+	    var blankOpt = document.createElement("option");
+         blankOpt.value = "";
+         blankOpt.textContent = "-- Select location --";
+         sel.appendChild(blankOpt);
+      for (var i = 0; i < LOCATIONS.length; i++) {
+        var loc = LOCATIONS[i];
+        var opt = document.createElement("option");
+        opt.value = loc.name;
+        opt.textContent = loc.name;
+        sel.appendChild(opt);
+      }
+
+      sel.addEventListener("change", function() {
+        var chosen = null;
+        for (var i = 0; i < LOCATIONS.length; i++) {
+          if (LOCATIONS[i].name === sel.value) {
+            chosen = LOCATIONS[i];
+            break;
+          }
+        }
+        if (chosen) {
+          document.getElementById("freightAddress").value = chosen.address;
+        }
+      });
+    }
+
+    // --------- FLA part datalist ---------
+    function buildFlaPartDatalist() {
+      var dl = document.getElementById("flaPartCodes");
+      dl.innerHTML = "";
+      // Only show parts that start with VARB
+      var allCodes = Object.keys(FLA_PARTS);
+      for (var i = 0; i < allCodes.length; i++) {
+        var code = allCodes[i];
+        var desc = FLA_PARTS[code];
+        if (code.toUpperCase().startsWith("VARB")) {
+          var opt = document.createElement("option");
+          opt.value = code;
+          opt.label = code + " - " + desc;
+          dl.appendChild(opt);
+        }
+      }
+    }
+
+    // Build Non FLA parts dropdown - only parts that DON'T start with VARB
+    function buildNonFlaPartDatalist() {
+      var dl = document.getElementById("nonFlaPartCodes");
+      dl.innerHTML = "";
+      // Only show parts that DON'T start with VARB
+      var allCodes = Object.keys(FLA_PARTS);
+      for (var i = 0; i < allCodes.length; i++) {
+        var code = allCodes[i];
+        var desc = FLA_PARTS[code];
+        if (!code.toUpperCase().startsWith("VARB")) {
+          var opt = document.createElement("option");
+          opt.value = code;
+          opt.label = code + " - " + desc;
+          dl.appendChild(opt);
+        }
+      }
+    }
+
+    // --------- Form validation (order tab) ---------
+    function validateOrderForm() {
+      // Get supply method first to check if fitting location is needed
+      var supplyMethod = document.getElementById("supplyMethod").value;
+      
+      var requiredFields = [
+        { id: "dealerName",      name: "Dealership" },
+        { id: "dealerContact",   name: "Contact name" },
+        { id: "dealerEmail",     name: "Email" },
+        { id: "dateRequired",    name: "Date required" },
+        { id: "poNumber",        name: "PO Number" },
+        { id: "vehicleModel",    name: "Vehicle model" },
+        { id: "vehicleVin",      name: "VIN" },
+        { id: "supplyMethod",    name: "Supply method" }
+      ];
+
+      // Only require fitting location if NOT freight to MVD
+      if (supplyMethod !== "Freight to MVD") {
+        requiredFields.push({ id: "fittingLocation", name: "Fitting location" });
+      }
+
+      var missing = [];
+
+      // Check mandatory fields
+      for (var field of requiredFields) {
+        var el = document.getElementById(field.id);
+        if (!el || !el.value || el.value.trim() === "") {
+          missing.push(field.name);
+        }
+      }
+
+      // Check at least one part added (a Part code somewhere in the table)
+      var tbody = document
+        .getElementById("orderPartsTable")
+        .querySelector("tbody");
+
+      var partFound = false;
+      if (tbody) {
+        for (var i = 0; i < tbody.children.length; i++) {
+          var row = tbody.children[i];
+          var codeInput = row.children[0].querySelector("input");
+          var codeValue = codeInput && codeInput.value
+            ? codeInput.value.trim()
+            : "";
+          if (codeValue !== "") {
+            partFound = true;
+            break;
+          }
+        }
+      }
+
+      if (!partFound) {
+        missing.push("At least one Part Code");
+      }
+
+      if (missing.length > 0) {
+        alert(
+          "Please fill in the following before exporting:\n\n" +
+          missing.join("\n")
+        );
+        return false;
+      }
+
+      return true;
+    }
+
+    // --------- Email stub  ---------
+    function prepareEmail() {
+      if (!validateOrderForm()) {
+        return;
+      }
+
+      // Get all the form values
+      var dealer = document.getElementById("dealerName").value;
+      var contact = document.getElementById("dealerContact").value;
+      var email = document.getElementById("dealerEmail").value;
+      var dateRequired = document.getElementById("dateRequired").value;
+      var poNumber = document.getElementById("poNumber").value;
+	  var pandaNumber = document.getElementById("pandaNumber").value;
+      
+      // Vehicle info
+      var vehicleModel = document.getElementById("vehicleModel").value;
+      var vehicleDerivative = document.getElementById("vehicleDerivative").value;
+      var vehicleBody = document.getElementById("vehicleBody").value;
+      var vehicleColour = document.getElementById("vehicleColour").value;
+      var vehicleVin = document.getElementById("vehicleVin").value;
+      
+      // Supply details
+      var supplyMethod = document.getElementById("supplyMethod").value;
+      var fittingLocation = document.getElementById("fittingLocation").value;
+      var freightAddress = document.getElementById("freightAddress").value;
+
+      // Build the email subject
+      var subject = "FLA Order - " + dealer;
+      if (poNumber) {
+        subject += " - PO: " + poNumber;
+      }
+
+      // Build the email body
+      var body = "ARB FLA ORDER FORM\n";
+      body += "==================\n\n";
+      
+      body += "ORDER DETAILS:\n";
+      body += "--------------\n";
+      body += "Dealership: " + dealer + "\n";
+      body += "Contact Name: " + contact + "\n";
+      body += "Email: " + email + "\n";
+      body += "Date Required: " + dateRequired + "\n";
+      body += "PO Number: " + poNumber + "\n";
+      body += "Panda Number: " + pandaNumber + "\n\n";
+      body += "VEHICLE INFORMATION:\n";
+      body += "--------------------\n";
+      body += "Model: " + vehicleModel + "\n";
+      body += "Sub model: " + vehicleDerivative + "\n";
+      body += "Body Style: " + vehicleBody + "\n";
+      body += "Colour: " + vehicleColour + "\n";
+      body += "VIN: " + vehicleVin + "\n\n";
+      
+      body += "SUPPLY DETAILS:\n";
+      body += "---------------\n";
+      body += "Supply Method: " + supplyMethod + "\n";
+      body += "Fitting Location: " + fittingLocation + "\n";
+      body += "Freight Address: " + freightAddress + "\n\n";
+      
+      body += "FLA PARTS ORDERED:\n";
+      body += "------------------\n";
+      
+      // Get all the FLA parts from the table
+      var rows = document
+        .getElementById("orderPartsTable")
+        .querySelector("tbody").children;
+      var partCount = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var code = rows[i].children[0].querySelector("input").value.trim();
+        var qty  = rows[i].children[1].querySelector("input").value.trim();
+        var desc = rows[i].children[2].querySelector("input").value.trim();
+        
+        if (code) {
+          partCount++;
+          body += partCount + ". " + code + " (Qty: " + (qty || "1") + ") - " + desc + "\n";
+        }
+      }
+      
+      if (partCount === 0) {
+        body += "No FLA parts added\n";
+      }
+      
+      body += "\nNON FLA PARTS ORDERED:\n";
+      body += "----------------------\n";
+      
+      // Get all the Non FLA parts from the table
+      var nonFlaRows = document
+        .getElementById("nonFlaPartsTable")
+        .querySelector("tbody").children;
+      var nonFlaCount = 0;
+      for (var i = 0; i < nonFlaRows.length; i++) {
+        var code = nonFlaRows[i].children[0].querySelector("input").value.trim();
+        var qty  = nonFlaRows[i].children[1].querySelector("input").value.trim();
+        var desc = nonFlaRows[i].children[2].querySelector("input").value.trim();
+        
+        if (code) {
+          nonFlaCount++;
+          body += nonFlaCount + ". " + code + " (Qty: " + (qty || "1") + ") - " + desc + "\n";
+        }
+      }
+      
+      if (nonFlaCount === 0) {
+        body += "No Non FLA parts added\n";
+      }
+      
+      body += "\n==================\n";
+      body += "Generated from ARB FLA Digital Order Form\n";
+
+      // Check if we should CC the dealer email
+      var ccCheckbox = document.getElementById("ccThisEmail");
+      
+      // Create the mailto link
+      var mailto = "mailto:FLA@arb.co.nz?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      
+      // Add CC if checkbox is ticked and email field has something
+      if (ccCheckbox.checked && email) {
+        mailto += "&cc=" + encodeURIComponent(email);
+      }
+
+      window.location.href = mailto;
+    }
+
+// Clear the entire form
+function clearForm() {
+  var sure = confirm("Are you sure you want to clear the form? This cannot be undone.");
+  if (!sure) return;
+
+  // Clear order details
+  document.getElementById("dealerName").value = "";
+  document.getElementById("dealerContact").value = "";
+  document.getElementById("dealerEmail").value = "";
+  document.getElementById("ccThisEmail").checked = false;
+  document.getElementById("dateRequired").value = "";
+  document.getElementById("poNumber").value = "";
+  document.getElementById("pandaNumber").value = "";
+
+  // Clear vehicle info
+  document.getElementById("vehicleModel").value = "";
+  document.getElementById("vehicleDerivative").value = "";
+
+  // IMPORTANT: your body style select is id="VehicalBody" (typo in HTML)
+  var bodySel = document.getElementById("VehicalBody") || document.getElementById("vehicleBody");
+  if (bodySel) bodySel.value = "";
+
+  document.getElementById("vehicleColour").value = "";
+  document.getElementById("vehicleVin").value = "";
+
+  // Clear supply details
+  document.getElementById("supplyMethod").value = "";
+  document.getElementById("fittingLocation").value = "";
+  document.getElementById("freightAddress").value = "";
+
+  // Clear BOTH parts tables
+  var flaTbody = document.querySelector("#orderPartsTable tbody");
+  if (flaTbody) flaTbody.innerHTML = "";
+
+  var nonFlaTbody = document.querySelector("#nonFlaPartsTable tbody");
+  if (nonFlaTbody) nonFlaTbody.innerHTML = "";
+
+  // Re-add one empty row to each table so the UI stays usable
+  if (typeof ensureOrderTableRows === "function") ensureOrderTableRows();
+  if (typeof ensureNonFlaTableRows === "function") ensureNonFlaTableRows();
+
+  // Clear suspension/canopy text areas
+  ["frontParts", "rearParts", "canopyParts", "canopyAccessoryParts"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  // Clear warning text
+  var warn = document.getElementById("suspensionWarning");
+  if (warn) warn.textContent = "";
+
+  alert("Form cleared!");
+}
+
+
+    // Main initialization function
+    async function init() {
+      console.log('Starting up the form...');
+      
+     // Load data
+      var dealersLoaded = await loadDealerships();
+      var partsLoaded = await loadPartCodes();
+      
+      // Setup everything else
+      buildFlaPartDatalist();
+      buildNonFlaPartDatalist();
+      ensureOrderTableRows();
+      ensureNonFlaTableRows();
+      populateDealershipDropdown();
+      populateLocationDropdown();
+
+      // Hook up the freight address auto-fill
+      document.getElementById("dealerName").addEventListener("change", fillFreightAddress);
+      document.getElementById("supplyMethod").addEventListener("change", fillFreightAddress);
+
+      // Suspension
+      document.getElementById("suspType").addEventListener("change", populateSuspensionModels);
+      document.getElementById("suspModel").addEventListener("change", function() {
+        updateSuspensionOptions();
+        updateSuspensionImage();
+        // Don't auto-sync to vehicle model - let user control it
+      });
+      document.getElementById("frontOption").addEventListener("change", updateFrontDisplay);
+      document.getElementById("rearOption").addEventListener("change", updateRearDisplay);
+
+      populateSuspensionModels();
+
+      // Canopy
+      document.getElementById("canopyType").addEventListener("change", updateCanopyModels);
+      document.getElementById("canopyModel").addEventListener("change", function() {
+        updateCanopyOptions();
+        updateCanopyAccessoryOptions();
+        updateCanopyImage();
+        // Don't auto-sync to vehicle model - let user control it
+      });
+      document.getElementById("canopyOption").addEventListener("change", function() {
+        updateCanopyWindowOptions();
+        updateCanopyDisplay();
+      });
+      document.getElementById("canopyWindows").addEventListener("change", updateCanopyDisplay);
+      document.getElementById("canopyAccessory").addEventListener("change", updateCanopyAccessoryDisplay);
+
+      updateCanopyModels();
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
