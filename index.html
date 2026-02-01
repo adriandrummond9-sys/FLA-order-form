@@ -743,7 +743,6 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
       "BP51": {}
     };
 
-    // Clone of Nitro Plus / MT64 / BP51 configs from Python
     (function addOtherTypes() {
       var nitroRangerEverest = {
         front: {
@@ -797,8 +796,93 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
         }
       };
 
-      TYPE_CONFIG["Nitro Plus"]["Ranger"] = nitroRangerEverest;
-      TYPE_CONFIG["Nitro Plus"]["Everest"] = nitroRangerEverest;
+      // Nitro Plus - Ranger
+      var nitroRanger = {
+        front: {
+          "No bar": { kit_number: "4024", parts: ["4024", "93052 x2"] },
+          "Bull bar": { kit_number: "4024", parts: ["4024", "93053 x2"] },
+          "Bullbar Winch": { kit_number: "4024", parts: ["4024", "93053 x2"] }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "EL130R x2",
+              "63172 x2",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL131R x2",
+              "63173 x2",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL132R x2",
+              "63178 x2",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU83 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          }
+        }
+      };
+
+      // Nitro Plus - Everest
+      var nitroEverest = {
+        front: {
+          "No bar": { kit_number: "4024", parts: ["4024", "93052 x2"] },
+          "Bull bar": { kit_number: "4024", parts: ["4024", "93053 x2"] },
+          "Bullbar Winch": { kit_number: "4024", parts: ["4024", "93053 x2"] }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "3212",
+              "63174 x2"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "3212",
+              "63174 x2"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "3213",
+              "63175 x2"
+            ]
+          }
+        }
+      };
+
+      TYPE_CONFIG["Nitro Plus"]["Ranger"] = nitroRanger;
+      TYPE_CONFIG["Nitro Plus"]["Everest"] = nitroEverest;
 
       var mt64RangerEverest = {
         front: {
@@ -855,8 +939,96 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
         }
       };
 
-      TYPE_CONFIG["MT64"]["Ranger"] = mt64RangerEverest;
-      TYPE_CONFIG["MT64"]["Everest"] = mt64RangerEverest;
+      // MT64 - Ranger
+      var mt64Ranger = {
+        front: {
+          "No bar": { kit_number: "TBC", parts: ["4024", "MT64902001 x2"] },
+          "Bull bar": { kit_number: "TBC", parts: ["4024", "MT64902001 x2"] },
+          "Bullbar Winch": { kit_number: "TBC", parts: ["4024", "MT64902002 x2"] }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "EL130R x2",
+              "MT64602003L",
+              "MT64602003R",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL131R x2",
+              "MT64602004L",
+              "MT64602004R",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "EL132R x2",
+              "MT64602004L",
+              "MT64602004R",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU83 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          }
+        }
+      };
+
+      // MT64 - Everest
+      var mt64Everest = {
+        front: {
+          "No bar": { kit_number: "TBC", parts: ["4024", "MT64902005 x2"] },
+          "Bull bar": { kit_number: "TBC", parts: ["4024", "MT64902005 x2"] },
+          "Bullbar Winch": { kit_number: "TBC", parts: ["4024", "MT64902006 x2"] }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "3212",
+              "MT64602007 x2"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "3213",
+              "MT64602007"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "3214",
+              "MT64602008 x2"
+            ]
+          }
+        }
+      };
+
+      TYPE_CONFIG["MT64"]["Ranger"] = mt64Ranger;
+      TYPE_CONFIG["MT64"]["Everest"] = mt64Everest;
 
       var bp51RangerEverest = {
         front: {
@@ -922,8 +1094,120 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
         }
       };
 
-      TYPE_CONFIG["BP51"]["Ranger"] = bp51RangerEverest;
-      TYPE_CONFIG["BP51"]["Everest"] = bp51RangerEverest;
+      // BP51 - Ranger
+      var bp51Ranger = {
+        front: {
+          "No bar": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          },
+          "Bull bar": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          },
+          "Bullbar Winch": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+			  "EL130R x2",
+              "BP5160055R",
+              "BP5160055L",
+              "VM80010052",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+			  "EL131R x2",
+              "BP5160055R",
+              "BP5160055L",
+              "VM80010052",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU82 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+			  "EL132R x2",
+              "BP5160055R",
+              "BP5160055L",
+              "VM80010052",
+              "OMEGS20",
+              "OMEGP10",
+              "OMESB118 x2",
+              "OMEU83 x4",
+              "FK115",
+              "FK114",
+              "FK113"
+            ]
+          }
+        }
+      };
+
+      // BP51 - Everest
+      var bp51Everest = {
+        front: {
+          "No bar": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          },
+          "Bull bar": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          },
+          "Bullbar Winch": {
+            kit_number: "TBC",
+            parts: ["BP5190015R", "BP5190015L", "VM80010053"]
+          }
+        },
+        rear: {
+          "Medium Load": {
+            kit_number: "TBC",
+            parts: [
+              "BP5160064R",
+              "BP5160064L",
+              "VM80010064"
+            ]
+          },
+          "Constant 300kg": {
+            kit_number: "TBC",
+            parts: [
+              "BP5160064R",
+              "BP5160064L",
+              "VM80010064"
+            ]
+          },
+          "Constant 600kg": {
+            kit_number: "TBC",
+            parts: [
+              "BP5160064R",
+              "BP5160064L",
+              "VM80010064"
+            ]
+          }
+        }
+      };
+
+      TYPE_CONFIG["BP51"]["Ranger"] = bp51Ranger;
+      TYPE_CONFIG["BP51"]["Everest"] = bp51Everest;
     })();
 
     // Canopy config
@@ -1363,6 +1647,9 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
       var suspTypeSel = document.getElementById("suspType");
       var suspModelSel = document.getElementById("suspModel");
       var type = suspTypeSel.value;
+      
+      // Remember the currently selected model
+      var previousModel = suspModelSel.value;
 
       var models = Object.keys(TYPE_CONFIG[type] || {});
       suspModelSel.innerHTML = "";
@@ -1375,7 +1662,13 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
       }
 
       if (models.length > 0) {
-        suspModelSel.value = models[0];
+        // Try to keep the same model if it exists in the new type
+        if (previousModel && models.indexOf(previousModel) !== -1) {
+          suspModelSel.value = previousModel;
+        } else {
+          // Otherwise default to the first model
+          suspModelSel.value = models[0];
+        }
       }
 
       updateSuspensionOptions();
@@ -1587,8 +1880,8 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
       if (special.has(optionName)) {
         values = [
           "All",
-          "2 sliding windows",
-          "2 lift up windows",
+          "2 Sliding windows",
+          "2 Lift up windows",
           "Lift up left window",
           "Lift up right window"
         ];
@@ -1631,8 +1924,8 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
       ]);
 
       var windowIndexMap = {
-        "2 sliding windows": 0,
-        "2 lift up windows": 1,
+        "2 Sliding windows": 0,
+        "2 Lift up windows": 1,
         "Lift up left window": 2,
         "Lift up right window": 3
       };
