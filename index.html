@@ -1766,15 +1766,15 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
     }
 
     function updateCanopyImage() {
-      var model = document.getElementById("canopyModel").value;
+      var type = document.getElementById("canopyType").value;
       var img = document.getElementById("canopyImage");
-      if (model === "Classic") {
+      if (type === "Classic") {
         img.src = "Classic.png";
-      } else if (model === "Classic Plus") {
+      } else if (type === "Classic Plus") {
         img.src = "classic_plus.png";
-      } else if (model === "Ascent") {
+      } else if (type === "Ascent") {
         img.src = "ascent.png";
-      } else if (model === "Hardlid") {
+      } else if (type === "Hardlid") {
         img.src = "Hardlid.png";
       } else {
         img.removeAttribute("src");
@@ -2035,6 +2035,7 @@ var EMBEDDED_PARTS = [{"s":"LK01A","d":"45MM TRACK AND LOAD RING SET"},{"s":"NHS
         { id: "dealerContact",   name: "Contact name" },
         { id: "dealerEmail",     name: "Email" },
         { id: "dateRequired",    name: "Date required" },
+        { id: "poNumber",        name: "PO Number" },
         { id: "vehicleModel",    name: "Vehicle model" },
         { id: "vehicleVin",      name: "VIN" },
         { id: "supplyMethod",    name: "Supply method" }
